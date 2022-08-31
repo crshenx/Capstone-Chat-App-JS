@@ -41,3 +41,7 @@ The user will be able to sign up and log into the app. The user will be able to 
 ### First crack at database structure
 
 ![Alt text](Database-slack-clone.png?raw=true "Title")
+
+### Rough Draft Wireframes
+
+![Alt text](Wirefram-Slack-Clone.png?raw=true "Title")

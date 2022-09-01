@@ -5,6 +5,8 @@ import Profile from "./view/Profile";
 import Login from "./view/Login";
 import Signup from "./view/Signup";
 
+//test commit
+
 function App() {
   // const [user, setUser] = useState([]);
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ function App() {
     }
   }, [token]);
 
+  //yet another changes
+
   return (
     <div className="App">
       <Routes>
@@ -26,5 +30,7 @@ function App() {
     </div>
   );
 }
+
+// another change
 
 export default App;

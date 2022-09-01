@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+function checkStatus(res) {
+  if (res.status > 199 && res.status < 300) {
+    console.log("status is OK", res.status);
+    return res.json();
+  }
+
+  return Promise.reject(res.statusText);
+}
+
 function Login() {
   const [formData, setformData] = useState({ username: "", password: "" });
   //   const [value, setValue] = useState('')
@@ -16,7 +25,7 @@ function Login() {
       },
       body: JSON.stringify({ user: formData }),
     })
-      .then((r) => r.json())
+      .then(checkStatus)
       .then((data) => {
         // save the token to localStorage for future access
         localStorage.setItem("jwt", data.jwt);

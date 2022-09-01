@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [newUser, setNewUser] = useState({});
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const newUserData = (data, value) => {
     setNewUser({
@@ -18,7 +20,7 @@ function Signup() {
 
     if (!userName || userName === "") newErrors.name = "must choose username";
     else if (userName.length > 30 || userName.length < 3)
-      newErrors.userName = "wrong username length";
+      newErrors.name = "wrong username length";
     if (password !== password_confirmation)
       newErrors.password = "password must match confirmation";
 
@@ -30,6 +32,7 @@ function Signup() {
     const newErrors = findFormErrors();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      console.log(newErrors);
     } else {
       fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
@@ -46,6 +49,7 @@ function Signup() {
           // save the user somewhere (in state!) to log the user in
           // setUser(data.user);
           console.log(data);
+          navigate("/");
         });
     }
   }
@@ -72,10 +76,10 @@ function Signup() {
           type="password"
           placeholder="Enter Password"
           onChange={(e) => newUserData("password", e.target.value)}
-          isInvalid={!!errors.name}
+          isInvalid={!!errors.password}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.name}
+          {errors.password}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group

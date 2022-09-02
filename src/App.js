@@ -4,17 +4,15 @@ import "./App.css";
 import Profile from "./view/Profile";
 import Login from "./view/Login";
 import Signup from "./view/Signup";
+// import { ProvideAuth, useAuth } from "./hooks/use-auth";
 
 function App() {
-  // const [user, setUser] = useState([]);
-  const navigate = useNavigate();
-  const token = localStorage.getItem("jwt");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("login");
-    }
-  }, [token]);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!auth.user) {
+  //     navigate("login");
+  //   }
+  // }, [auth.user]);
 
   return (
     <div className="App">

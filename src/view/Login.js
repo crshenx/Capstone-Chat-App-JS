@@ -1,29 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/use-auth";
 
 function Login() {
   const [formData, setformData] = useState({ username: "", password: "" });
-  //   const [value, setValue] = useState('')
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const auth = useAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ user: formData }),
-    })
-      .then((r) => r.json())
+    auth
+      .login(formData)
       .then((data) => {
-        // save the token to localStorage for future access
-        localStorage.setItem("jwt", data.jwt);
-        // save the user somewhere (in state!) to log the user in
-        // setUser(data.user);
         console.log(data);
         navigate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err);
       });
   }
 

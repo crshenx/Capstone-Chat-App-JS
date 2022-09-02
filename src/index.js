@@ -5,107 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// window.createUser = function (name) {
-//   const newUserData = {
-//     username: name,
-//     password: "fartpassword",
-//     bio: "farts a lot",
-//     avatar: "a fart",
-//   };
-
-//   fetch("http://localhost:3000/api/v1/users", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: JSON.stringify({ user: newUserData }),
-//   })
-//     .then((r) => r.json())
-//     .then((data) => {
-//       // save the token to localStorage for future access
-//       // localStorage.setItem("jwt", data.jwt);
-//       // save the user somewhere (in state!) to log the user in
-//       // setUser(data.user);
-//       console.log(data);
-//     });
-// };
-
-window.createUser = function (name) {
-  const newUserData = {
-    username: name,
-    password: "fartpassword",
-    bio: "farts a lot",
-    avatar: "a fart",
-  };
-
-  fetch("http://localhost:3000/api/v1/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({ user: newUserData }),
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      // save the token to localStorage for future access
-      localStorage.setItem("jwt", data.jwt);
-      // save the user somewhere (in state!) to log the user in
-      // setUser(data.user);
-      console.log(data);
-    });
-};
-
-window.loginUser = function (name) {
-  const newUserData = {
-    username: name,
-    password: "fartpassword",
-  };
-
-  fetch("http://localhost:3000/api/v1/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({ user: newUserData }),
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      // save the token to localStorage for future access
-      localStorage.setItem("jwt", data.jwt);
-      // save the user somewhere (in state!) to log the user in
-      // setUser(data.user);
-      console.log(data);
-    });
-};
-
-// window.viewProfile = () => {
-//   let token = localStorage.getItem("jwt");
-//   console.log(token);
-//   fetch("http://localhost:3000/api/v1/profile", {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-//     .then((r) => r.json())
-//     .then((data) => {
-//       // save the token to localStorage for future access
-//       // localStorage.setItem("jwt", data.jwt);
-//       // save the user somewhere (in state!) to log the user in
-//       // setUser(data.user);
-//       console.log(data);
-//     });
-// };
+import { ProvideAuth } from "./hooks/use-auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ProvideAuth>
+        <App />
+      </ProvideAuth>
     </BrowserRouter>
   </React.StrictMode>
 );

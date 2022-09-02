@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/use-auth";
 
 function Signup() {
   const [newUser, setNewUser] = useState({});
   const [errors, setErrors] = useState({});
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const newUserData = (data, value) => {
@@ -34,27 +36,36 @@ function Signup() {
       setErrors(newErrors);
       console.log(newErrors);
     } else {
-      fetch("http://localhost:3000/api/v1/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ user: newUser }),
-      })
-        .then((r) => r.json())
+      auth
+        .signup({ username: newUser.userName, password: newUser.password })
         .then((data) => {
-          // save the token to localStorage for future access
-          // localStorage.setItem("jwt", data.jwt);
-          // save the user somewhere (in state!) to log the user in
-          // setUser(data.user);
           console.log(data);
           navigate("/");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(err);
         });
+      //   fetch("http://localhost:3000/api/v1/users", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Accept: "application/json",
+      //     },
+      //     body: JSON.stringify({ user: newUser }),
+      //   })
+      //     .then((r) => r.json())
+      //     .then((data) => {
+      //       // save the token to localStorage for future access
+      //       // localStorage.setItem("jwt", data.jwt);
+      //       // save the user somewhere (in state!) to log the user in
+      //       // setUser(data.user);
+      //       console.log(data);
+      //       navigate("/");
+      //     });
+      // }
     }
   }
-
-  console.log(newUser);
 
   return (
     <Form>

@@ -10,6 +10,10 @@ function Signup() {
   const navigate = useNavigate();
 
   const newUserData = (data, value) => {
+    console.log("newUser:", newUser);
+    console.log("data:", data);
+    console.log("value:", value);
+
     setNewUser({
       ...newUser,
       [data]: value,

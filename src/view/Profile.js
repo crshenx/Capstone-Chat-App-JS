@@ -12,11 +12,15 @@ function Profile() {
     }
   }, [auth.user]);
 
+  function handleClick() {
+    localStorage.removeItem("jwt");
+    navigate("/");
+  }
   return (
     <div>
       Profile
       <div>
-        <Button>Logout</Button>
+        <Button onClick={handleClick}>Logout</Button>
       </div>
     </div>
   );

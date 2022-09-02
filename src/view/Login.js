@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
+import { Button } from "react-bootstrap";
 
 function Login() {
   const [formData, setformData] = useState({ username: "", password: "" });
@@ -29,6 +30,11 @@ function Login() {
     console.log(newState);
     setformData(newState);
   }
+
+  function handleClick() {
+    navigate("/signup");
+  }
+
   return (
     <div>
       <div>Login</div>
@@ -48,9 +54,12 @@ function Login() {
           onChange={handleChange}
         ></input>
         <button type="submit" onClick={handleSubmit}>
-          submit
+          Login
         </button>
       </form>
+      <Button variant="primary" onClick={handleClick}>
+        Signup
+      </Button>
     </div>
   );
 }

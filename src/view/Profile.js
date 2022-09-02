@@ -16,11 +16,16 @@ function Profile() {
     localStorage.removeItem("jwt");
     navigate("/");
   }
+
+  function handleToChat() {
+    navigate("/chat");
+  }
   return (
     <div>
       Profile
       <div>
         <Button onClick={handleClick}>Logout</Button>
+        <Button onClick={handleToChat}>To Chat</Button>
       </div>
     </div>
   );

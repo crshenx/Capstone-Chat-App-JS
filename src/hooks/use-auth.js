@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { checkStatus } from "../utils/util";
+import {
+  AUTH_TOKEN_ID,
+  BASE_URL,
+  loginEndpoint,
+  signupEndpoint,
+} from "../config";
 
 const authContext = createContext();
 
-const AUTH_TOKEN_ID = "jwt";
-const protocol = "http";
-const PORT = "3000";
-const HOST = window.location.host.split(":")[0];
-const BASE_URL = `${protocol}://${HOST}:${PORT}`;
-const loginEndpoint = "/api/v1/login";
-const signupEndpoint = "/api/v1/users";
-
 export function ProvideAuth({ children }) {
   const auth = useProvideAuth();
-
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
@@ -21,8 +18,22 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
+function storeUsr(user) {
+  localStorage.setItem("user", JSON.stringify(user));
+}
+
+function getUsr() {
+  try {
+    return JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.warn("no user");
+    console.info(err);
+    return null;
+  }
+}
+
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getUsr());
 
   const login = ({ username, password }) => {
     return fetch(`${BASE_URL}${loginEndpoint}`, {
@@ -42,6 +53,7 @@ function useProvideAuth() {
       .then((data) => {
         localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
         setUser(data.user);
+        storeUsr(data.user);
         return data.user;
       });
   };
@@ -67,17 +79,24 @@ function useProvideAuth() {
         localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
         const user = { username, bio, avatar };
         setUser(user);
+        storeUsr(user);
         return user;
       });
   };
 
   const logout = () => {
     localStorage.removeItem(AUTH_TOKEN_ID);
+    localStorage.removeItem("user");
     setUser(null);
+  };
+
+  const isAuthed = () => {
+    return user && localStorage.getItem(AUTH_TOKEN_ID);
   };
 
   return {
     user,
+    isAuthed,
     login,
     logout,
     signup,

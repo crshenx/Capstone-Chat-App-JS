@@ -1,7 +1,8 @@
 import React from "react";
+import { ListGroup } from "react-bootstrap";
 
-function Messages() {
-  return <div>Messages</div>;
+function Messages({ message }) {
+  return <ListGroup.Item>{message}</ListGroup.Item>;
 }
 
 export default Messages;

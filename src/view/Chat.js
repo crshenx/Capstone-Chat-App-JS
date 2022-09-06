@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
+import { Container } from "react-bootstrap";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -12,8 +13,10 @@ function Chat() {
   console.log(messages);
   return (
     <div>
-      <MessageFeed messages={messages} />
-      <MessageInput sendMessage={sendMessage} />
+      <Container>
+        <MessageFeed messages={messages} />
+        <MessageInput sendMessage={sendMessage} />
+      </Container>
     </div>
   );
 }

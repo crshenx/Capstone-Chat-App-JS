@@ -5,6 +5,7 @@ import Profile from "./view/Profile";
 import Login from "./view/Login";
 import Signup from "./view/Signup";
 import Chat from "./view/Chat";
+import { ThemeProvider } from "react-bootstrap";
 // import { ProvideAuth, useAuth } from "./hooks/use-auth";
 
 function App() {
@@ -16,14 +17,19 @@ function App() {
   // }, [auth.user]);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Profile />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="chat" element={<Chat />} />
-      </Routes>
-    </div>
+    <ThemeProvider
+      breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
+      minBreakpoint="xxs"
+    >
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Profile />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="chat" element={<Chat />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 

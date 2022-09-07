@@ -19,7 +19,7 @@ function MessageInput({ sendMessage }) {
   }
 
   return (
-    <>
+    <div className="fixed-bottom, w-75 p-3">
       <InputGroup className="mb-3">
         <Form.Control
           aria-label="Text input with dropdown button"
@@ -43,7 +43,7 @@ function MessageInput({ sendMessage }) {
           <Dropdown.Item href="#">Separated link</Dropdown.Item>
         </SplitButton>
       </InputGroup>
-    </>
+    </div>
   );
 }
 

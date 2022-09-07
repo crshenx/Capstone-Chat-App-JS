@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
+import { Container, ListGroup, Stack } from "react-bootstrap";
 import Messages from "./Messages";
 
 function MessageFeed({ messages }) {
@@ -8,9 +8,15 @@ function MessageFeed({ messages }) {
     return <Messages message={message} key={index} />;
   });
   return (
-    <div>
-      <ListGroup>{renderMessages}</ListGroup>
-    </div>
+    // <div className={"overflow-scroll, w-75 p-3"}>
+    <Container fluid>
+      <Stack gap={3}>
+        {/* <ListGroup> */}
+        {renderMessages}
+        {/* </ListGroup> */}
+      </Stack>
+    </Container>
+    // </div>
   );
 }
 

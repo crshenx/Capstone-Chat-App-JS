@@ -7,14 +7,14 @@ function Profile() {
   const navigate = useNavigate();
   const auth = useAuth();
   useEffect(() => {
-    if (!auth.user) {
+    if (!auth.isAuthed()) {
       navigate("login");
     }
-  }, [auth.user]);
+  }, [auth]);
 
-  function handleClick() {
-    localStorage.removeItem("jwt");
-    navigate("/");
+  function handleClick(e) {
+    e.stopPropagation();
+    auth.logout();
   }
 
   function handleToChat() {

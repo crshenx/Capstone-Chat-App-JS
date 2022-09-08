@@ -23,6 +23,17 @@ window.createConnection = () => {
   );
 };
 
+window.SubRooms = () => {
+  window.ROOMS_CHANNEL = consumer.subscriptions.create(
+    { channel: "rooms" },
+    {
+      received(data) {
+        console.log(data);
+        console.log(JSON.stringify(data));
+      },
+    }
+  );
+};
 window.SET_COOKIE = () => {
   saveJwtAsCookie();
 };

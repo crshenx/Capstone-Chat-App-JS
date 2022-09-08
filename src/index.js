@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProvideAuth } from "./hooks/use-auth";
 import { saveJwtAsCookie } from "./utils/util";
-import { AUTH_TOKEN_ID, BASE_URL } from "./config";
+import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "./config";
 
 import consumer from "./channels/consumer";
 
@@ -26,7 +26,7 @@ window.createConnection = () => {
 
 window.SubRooms = () => {
   window.ROOMS_CHANNEL = consumer.subscriptions.create(
-    { channel: "rooms" },
+    { channel: "RoomsChannel" },
     {
       received(data) {
         console.log(data);
@@ -37,7 +37,7 @@ window.SubRooms = () => {
 };
 
 window.CREATE_ROOM = (name) => {
-  return fetch(`${BASE_URL}/rooms`, {
+  return fetch(`${BASE_URL}${roomsEndpoint}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

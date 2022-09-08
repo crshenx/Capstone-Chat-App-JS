@@ -5,3 +5,4 @@ export const HOST = window.location.host.split(":")[0];
 export const BASE_URL = `${protocol}://${HOST}:${PORT}`;
 export const loginEndpoint = "/api/v1/login";
 export const signupEndpoint = "/api/v1/users";
+export const roomsEndpoint = "/api/v1/rooms";

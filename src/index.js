@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProvideAuth } from "./hooks/use-auth";
 import { saveJwtAsCookie } from "./utils/util";
+import { AUTH_TOKEN_ID, BASE_URL } from "./config";
 
 import consumer from "./channels/consumer";
 
@@ -33,6 +34,29 @@ window.SubRooms = () => {
       },
     }
   );
+};
+
+window.CREATE_ROOM = (name) => {
+  return fetch(`${BASE_URL}/rooms`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+    },
+    body: JSON.stringify({
+      room: {
+        name: name,
+        is_private: false,
+      },
+    }),
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 window.SET_COOKIE = () => {
   saveJwtAsCookie();

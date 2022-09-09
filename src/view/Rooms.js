@@ -15,12 +15,12 @@ function Rooms() {
       { channel: "RoomsChannel" },
       {
         received(data) {
-          //   console.log(data);
-          //   console.log(JSON.stringify(data));
+          // //console.log(JSON.stringify(data));
           //   setRooms(JSON.stringify(data));
+          //console.log(data);
         },
-        connected(data) {
-          console.log("Connected");
+        connected() {
+          //console.log("Connected");
           // setRooms(JSON.stringify(data));
         },
       }
@@ -39,7 +39,7 @@ function Rooms() {
     }
     setFormData({ ...formData, [name]: value });
   }
-  //   console.log(formData);
+  //   //console.log(formData);
 
   function handleClick(e) {
     e.preventDefault();
@@ -57,18 +57,18 @@ function Rooms() {
     })
       .then((data) => {
         // setRooms(data);
-        console.log(data);
+        //console.log(data);
         data.json();
       })
       .then((data) => {
         setRooms(data);
       })
       .catch((err) => {
-        console.error(err);
+        //console.error(err);
       });
   }
 
-  console.log(`state variable "rooms":${rooms}`);
+  //console.log(`state variable "rooms":${rooms}`);
 
   return (
     <div>

@@ -7,7 +7,7 @@ import Signup from "./view/Signup";
 import Chat from "./view/Chat";
 import { ThemeProvider } from "react-bootstrap";
 // import { ProvideAuth, useAuth } from "./hooks/use-auth";
-
+import Rooms from "./view/Rooms";
 function App() {
   // const navigate = useNavigate();
   // useEffect(() => {
@@ -27,6 +27,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="chat" element={<Chat />} />
+          <Route path="rooms" element={<Rooms />} />
         </Routes>
       </div>
     </ThemeProvider>

@@ -12,20 +12,20 @@ function Profile() {
     }
   }, [auth]);
 
-  function handleClick(e) {
-    e.stopPropagation();
-    auth.logout();
-  }
-
-  function handleToChat() {
-    navigate("/chat");
-  }
   return (
     <div>
       Profile
       <div>
-        <Button onClick={handleClick}>Logout</Button>
-        <Button onClick={handleToChat}>To Chat</Button>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            auth.logout();
+          }}
+        >
+          Logout
+        </Button>
+        <Button onClick={() => navigate("/chat")}>To Chat</Button>
+        <Button onClick={() => navigate("/rooms")}>To Rooms</Button>
       </div>
     </div>
   );

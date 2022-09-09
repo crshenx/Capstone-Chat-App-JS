@@ -36,6 +36,23 @@ window.SubRooms = () => {
   );
 };
 
+window.GetRooms = () => {
+  return fetch(`${BASE_URL}${roomsEndpoint}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+    },
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 window.CREATE_ROOM = (name) => {
   return fetch(`${BASE_URL}${roomsEndpoint}`, {
     method: "POST",

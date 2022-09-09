@@ -28,9 +28,12 @@ window.SubRooms = () => {
   window.ROOMS_CHANNEL = consumer.subscriptions.create(
     { channel: "RoomsChannel" },
     {
-      received(data) {
+      received: function (data) {
         console.log(data);
         console.log(JSON.stringify(data));
+      },
+      connected() {
+        console.log("Connected");
       },
     }
   );
@@ -75,6 +78,7 @@ window.CREATE_ROOM = (name) => {
       console.error(err);
     });
 };
+
 window.SET_COOKIE = () => {
   saveJwtAsCookie();
 };

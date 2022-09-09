@@ -1,21 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import SideBar from "./SideBar";
+
+import consumer from "../channels/consumer";
+import { useParams } from "react-router-dom";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
+  const params = useParams();
   //   const messages = ["asdf", "asdffsadf", "asdfasdf", "fart"];
   function sendMessage(message) {
     setMessages([...messages, message]);
   }
 
   console.log(messages);
+
+  // useEffect(() => {
+  //   const CONSUMER = consumer();
+  //   const paramsToSend = {
+  //     channel: "RoomChannel",
+  //     id: params.id,
+  //   };
+  //   const handlers = {
+  //     recieved(data) {
+  //       setMessages([...messages, data]);
+  //     },
+  //     connected() {
+  //       console.log("MESSAGE CONNECTED WTF IS THE DIFFERENCE");
+  //     },
+  //     disconnected() {
+  //       console.log("DISCONNECTED");
+  //     },
+  //   };
+  //   const sub = CONSUMER.subscriptions.create(paramsToSend, handlers);
+  //   return function cleanup() {
+  //     console.log(`:unsub from: `, params.id);
+  //     sub.unsubcribe();
+  //   };
+  // }, [params.id, messages]);
+
   return (
     <div>
       <Container>
-        <MessageFeed messages={messages} />
-        <MessageInput sendMessage={sendMessage} />
+        <Row>
+          <Col sm={3} style={{ border: "2px" }}>
+            <SideBar />
+          </Col>
+          {/* </Row>
+        <Row> */}
+          <Col sm={9}>
+            <MessageFeed messages={messages} />
+            <MessageInput sendMessage={sendMessage} />
+          </Col>{" "}
+        </Row>
       </Container>
     </div>
   );

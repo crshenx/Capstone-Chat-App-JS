@@ -7,6 +7,7 @@ function MessageFeed({ messages }) {
   const renderMessages = messages.map((message, index) => {
     return <Messages message={message} key={index} />;
   });
+
   return (
     // <div className={"overflow-scroll, w-75 p-3"}>
     <Container fluid>

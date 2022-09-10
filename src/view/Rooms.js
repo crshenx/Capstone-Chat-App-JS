@@ -82,10 +82,10 @@ function Rooms() {
       })
       .then((data) => {
         console.log("data.rooms");
-        // setRooms(data.rooms);
+        // setRooms(data.rooms.rooms);
       })
       .catch((err) => {
-        //console.error(err);
+        console.error(err);
       });
   }
 

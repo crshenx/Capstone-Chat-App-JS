@@ -9,6 +9,21 @@ import { useParams } from "react-router-dom";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
+
+  // {}...
+  // state.current_room = null
+  // state.messages = []
+
+  // useEffect (()=> http)
+
+  // make use effect to start sub to specific room
+
+  // you also need to provide handlers when start the subscription
+
+  // writes a messagesen d on the subscription
+
+  // const sub = consumer.subscriptions.create()
+
   const params = useParams();
   //   const messages = ["asdf", "asdffsadf", "asdfasdf", "fart"];
   function sendMessage(message) {
@@ -16,6 +31,16 @@ function Chat() {
   }
 
   console.log(messages);
+
+  // google the order of things that happen when.
+  // what order mult use-effects have. etc etc
+
+  // if we are in a room
+  // we need all the messages in the history
+
+  useEffect(() => {});
+
+  // after
 
   // useEffect(() => {
   //   const CONSUMER = consumer();

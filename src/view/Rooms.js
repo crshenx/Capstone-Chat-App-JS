@@ -3,7 +3,7 @@ import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "../config";
 import consumer from "../channels/consumer";
 import { checkStatus } from "../utils/util";
 import { useAuth } from "../hooks/use-auth";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, ListGroup } from "react-bootstrap";
 
 function Rooms() {
   const [rooms, setRooms] = useState([]);
@@ -88,9 +88,12 @@ function Rooms() {
 
   //console.log(`state variable "rooms":${rooms}`);
 
+  const renderRooms = rooms.map((room) => {
+    return <ListGroup.Item>{room}</ListGroup.Item>;
+  });
+
   return (
     <div>
-      Rooms
       <Form>
         <Form.Group
           className="mb-3"
@@ -113,6 +116,9 @@ function Rooms() {
           Submit
         </Button>
       </Form>
+      <ListGroup>
+        {renderRooms.length > 1 ? renderRooms : "Room List Here"}
+      </ListGroup>
     </div>
   );
 }

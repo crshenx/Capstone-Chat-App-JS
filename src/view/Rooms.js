@@ -23,7 +23,8 @@ function Rooms() {
     })
       .then(checkStatus)
       .then((data) => {
-        setRooms(data);
+        console.log(data);
+        setRooms(data.rooms);
       })
       .catch((err) => {
         console.error(err);
@@ -89,7 +90,7 @@ function Rooms() {
   //console.log(`state variable "rooms":${rooms}`);
 
   const renderRooms = rooms.map((room) => {
-    return <ListGroup.Item>{room}</ListGroup.Item>;
+    return <ListGroup.Item key={room.id}>{room.name}</ListGroup.Item>;
   });
 
   return (

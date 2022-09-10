@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "../config";
 import consumer from "../channels/consumer";
+import { checkStatus } from "../utils/util";
 import { useAuth } from "../hooks/use-auth";
 import { Form, Button } from "react-bootstrap";
 
@@ -10,25 +11,42 @@ function Rooms() {
   const auth = useAuth();
   const loggedIn = auth.isAuthed();
 
-  function connect() {
-    consumer.subscriptions.create(
+  useEffect(() => {
+    //get initial rooms
+    fetch(`${BASE_URL}${roomsEndpoint}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+      },
+    })
+      .then(checkStatus)
+      .then((data) => {
+        setRooms(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const sub = consumer.subscriptions.create(
       { channel: "RoomsChannel" },
       {
         received(data) {
-          // //console.log(JSON.stringify(data));
-          //   setRooms(JSON.stringify(data));
-          //console.log(data);
+          console.log(data);
         },
         connected() {
-          //console.log("Connected");
-          // setRooms(JSON.stringify(data));
+          console.log("connected");
         },
       }
     );
-  }
 
-  useEffect(() => {
-    connect();
+    return function cleanup() {
+      console.log("unsubbing from rooms channel");
+      sub.unsubscribe();
+    };
   }, []);
 
   function handleChange(e) {

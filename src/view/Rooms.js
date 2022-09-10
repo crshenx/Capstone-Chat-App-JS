@@ -37,6 +37,7 @@ function Rooms() {
       {
         received(data) {
           console.log(data);
+          setRooms(data.rooms);
         },
         connected() {
           console.log("connected");
@@ -80,7 +81,8 @@ function Rooms() {
         data.json();
       })
       .then((data) => {
-        setRooms(data);
+        console.log("data.rooms");
+        // setRooms(data.rooms);
       })
       .catch((err) => {
         //console.error(err);

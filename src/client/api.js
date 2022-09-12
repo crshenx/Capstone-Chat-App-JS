@@ -2,6 +2,7 @@ import {
   AUTH_TOKEN_ID,
   LOGIN_ENDPOINT,
   SIGNUP_ENDPOINT,
+  BASE_URL,
   ROOMS_ENDPOINT,
   MESSAGES_ENDPOINT,
 } from "../config";
@@ -46,7 +47,7 @@ const API = {
    * @returns {Promise} request promise, rejects on bad status
    */
   createRoom(name, isPrivate = false) {
-    return this.post(ROOMS_ENDPOINT, {
+    return this.post(BASE_URL + ROOMS_ENDPOINT, {
       room: {
         name,
         is_private: isPrivate,
@@ -54,13 +55,13 @@ const API = {
     });
   },
   getRooms() {
-    return this.get(ROOMS_ENDPOINT);
+    return this.get(BASE_URL + ROOMS_ENDPOINT);
   },
   getMessages(roomID) {
     const url = `${MESSAGES_ENDPOINT}?${new URLSearchParams({
       roomID: roomID,
     })}`;
-    return this.get(url);
+    return this.get(BASE_URL + url);
   },
 };
 

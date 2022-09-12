@@ -123,7 +123,10 @@ export default function PermanentDrawerLeft(
     });
   }
 
-  function handleRoomClick() {}
+  function handleRoomClick(e) {
+    e.stopPropagation();
+    console.log(`target id: ${e.currentTarget.id}`);
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -160,7 +163,7 @@ export default function PermanentDrawerLeft(
           {rooms.map((room, index) => (
             // <Link to="/chat">
             <ListItem key={room.id} disablePadding>
-              <ListItemButton onClick={handleRoomClick}>
+              <ListItemButton id={room.id} onClick={handleRoomClick}>
                 <ListItemText primary={room.name} />
               </ListItemButton>
             </ListItem>

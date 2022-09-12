@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
 import { Col, Container, Row } from "react-bootstrap";
 import SideBar from "./SideBar";
+import API from "../client/api";
 
 import consumer from "../channels/consumer";
 import { useParams } from "react-router-dom";
@@ -13,11 +14,51 @@ function Chat() {
     messages: [],
   });
 
+  let sub = useRef();
+
+  function onRoomClick(e) {
+    e.stopPropagation();
+    console.log(`currentTargetId`, e.currentTarget.id);
+    console.log(`TargetId`, e.target.id);
+
+    setChatState((state) => ({ ...state, currentRoomID: e.currentTarget.id }));
+  }
+
   useEffect(() => {
     if (chatState.currentRoomID) {
-      fetch();
+      API.getMessages(chatState.currentRoomID).then((messages) => {
+        console.log(messages);
+        setChatState((state) => ({ ...state, messages: messages }));
+      });
     }
-  });
+  }, [chatState.currentRoomID]);
+
+  useEffect(() => {
+    sub.current = consumer.subscriptions.create(
+      {
+        channel: "ChatChannel",
+        room: chatState.currentRoomID,
+      },
+      {
+        recieved(data) {
+          console.log("recieved", data);
+          setChatState((state) => ({
+            ...state,
+            messages: [...state.messages, data.content],
+          }));
+        },
+        connected() {
+          console.log("connected");
+        },
+        disconnected() {
+          console.log("disconnected");
+        },
+      }
+    );
+    return function cleanup() {
+      sub.current.unsubscribe();
+    };
+  }, [chatState.currentRoomID]);
 
   // you also need to provide handlers when start the subscriptio
 
@@ -39,13 +80,10 @@ function Chat() {
 
   // const sub = consumer.subscriptions.create()
 
-  const params = useParams();
   //   const messages = ["asdf", "asdffsadf", "asdfasdf", "fart"];
   function sendMessage(message) {
-    setChatState((state) => ({
-      ...state,
-      messages: [...state.messages, message],
-    }));
+    console.log(message);
+    sub.current.send({ content: message });
   }
 
   // console.log(messages);
@@ -56,7 +94,7 @@ function Chat() {
   // if we are in a room
   // we need all the messages in the history
 
-  useEffect(() => {});
+  // useEffect(() => {});
 
   // after
 
@@ -89,7 +127,7 @@ function Chat() {
       <Container>
         <Row>
           <Col sm={3} style={{ border: "2px" }}>
-            <SideBar />
+            <SideBar onRoomClick={onRoomClick} />
           </Col>
           {/* </Row>
         <Row> */}

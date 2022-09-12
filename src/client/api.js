@@ -66,3 +66,5 @@ const API = {
 };
 
 export default API;
+
+window.API = API;

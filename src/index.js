@@ -24,6 +24,8 @@ window.createConnection = () => {
   );
 };
 
+// checking i can push
+
 window.SubRooms = () => {
   window.ROOMS_CHANNEL = consumer.subscriptions.create(
     { channel: "RoomsChannel" },

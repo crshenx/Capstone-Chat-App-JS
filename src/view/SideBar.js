@@ -1,69 +1,84 @@
-// import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
-// import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 
-// function SideBar() {
-//   return (
-//     <Navbar bg="light" expand="lg" fixed="left">
-//       <Container>
-//         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//         <Navbar.Collapse id="basic-navbar-nav">
-//           <Nav className="me-auto">
-//             <Nav.Link href="#home">Home</Nav.Link>
-//             <Nav.Link href="#link">Link</Nav.Link>
-//             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-//               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-//               <NavDropdown.Item href="#action/3.2">
-//                 Another action
-//               </NavDropdown.Item>
-//               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-//               <NavDropdown.Divider />
-//               <NavDropdown.Item href="#action/3.4">
-//                 Separated link
-//               </NavDropdown.Item>
-//             </NavDropdown>
-//           </Nav>
-//         </Navbar.Collapse>
-//       </Container>
-//     </Navbar>
-//   );
-// }
+const drawerWidth = 240;
 
-// export default SideBar;
-
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
-
-function SideBar() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+export default function PermanentDrawerLeft({ rooms }) {
+  console.log(rooms);
   return (
-    <>
-      <Button
-        className="position-absolute top-0 start-0"
-        variant="primary"
-        onClick={handleShow}
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        Launch
-      </Button>
-
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+        {/* <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Permanent drawer
+          </Typography>
+        </Toolbar> */}
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          {rooms.map((room, index) => (
+            <ListItem key={room.id} disablePadding>
+              <ListItemButton>
+                {/* <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon> */}
+                <ListItemText primary={room.name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <Toolbar />
+        <Typography paragraph>Potential Spot for Output</Typography>
+        <Typography paragraph>Potential Spot for input?</Typography>
+      </Box>
+    </Box>
   );
 }
-
-export default SideBar;

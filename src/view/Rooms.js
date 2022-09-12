@@ -4,6 +4,7 @@ import consumer from "../channels/consumer";
 import { checkStatus } from "../utils/util";
 import { useAuth } from "../hooks/use-auth";
 import { Form, Button, ListGroup } from "react-bootstrap";
+import SideBar from "./SideBar";
 
 function Rooms() {
   const [rooms, setRooms] = useState([]);
@@ -80,10 +81,10 @@ function Rooms() {
         //console.log(data);
         data.json();
       })
-      .then((data) => {
-        console.log("data.rooms");
-        // setRooms(data.rooms.rooms);
-      })
+      // .then((data) => {
+      //   console.log(data.rooms);
+      //   // setRooms(data.rooms.rooms);
+      // })
       .catch((err) => {
         console.error(err);
       });
@@ -97,6 +98,7 @@ function Rooms() {
 
   return (
     <div>
+      <SideBar rooms={rooms} />
       <Form>
         <Form.Group
           className="mb-3"

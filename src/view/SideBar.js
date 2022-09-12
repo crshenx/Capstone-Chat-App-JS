@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API from "../client/api";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,9 +13,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "../config";
+import { AUTH_TOKEN_ID, BASE_URL, ROOMS_ENDPOINT } from "../config";
 import consumer from "../channels/consumer";
-import { checkStatus } from "../utils/util";
 import { useAuth } from "../hooks/use-auth";
 import Chat from "./Chat";
 
@@ -38,17 +38,27 @@ export default function PermanentDrawerLeft(
   const loggedIn = auth.isAuthed();
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   //get initial rooms
+  //   fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+  //     },
+  //   })
+  //     .then((data) => {
+  //       console.log(data);
+  //       setRooms(data.rooms);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    //get initial rooms
-    fetch(`${BASE_URL}${roomsEndpoint}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
-      },
-    })
-      .then(checkStatus)
+    API.getRooms()
       .then((data) => {
         console.log(data);
         setRooms(data.rooms);
@@ -91,23 +101,26 @@ export default function PermanentDrawerLeft(
   function handleClick(e) {
     e.preventDefault();
 
-    fetch(`${BASE_URL}${roomsEndpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
-      },
-      body: JSON.stringify({
-        room: formData,
-      }),
-    })
-      .then((data) => {
-        data.json();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    // fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //     Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+    //   },
+    //   body: JSON.stringify({
+    //     room: formData,
+    //   }),
+    // })
+    //   .then((data) => {
+    //     data.json();
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
+    API.createRoom(formData.name, formData.is_private).then((data) => {
+      console.log(data);
+    });
   }
 
   function handleRoomClick() {}

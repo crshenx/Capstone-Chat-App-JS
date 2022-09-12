@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProvideAuth } from "./hooks/use-auth";
 import { saveJwtAsCookie } from "./utils/util";
-import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "./config";
+import { AUTH_TOKEN_ID, BASE_URL, ROOMS_ENDPOINT } from "./config";
 
 import consumer from "./channels/consumer";
 
@@ -42,7 +42,7 @@ window.SubRooms = () => {
 };
 
 window.GetRooms = () => {
-  return fetch(`${BASE_URL}${roomsEndpoint}`, {
+  return fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -59,7 +59,7 @@ window.GetRooms = () => {
 };
 
 window.CREATE_ROOM = (name) => {
-  return fetch(`${BASE_URL}${roomsEndpoint}`, {
+  return fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from "react";
-// import { AUTH_TOKEN_ID, BASE_URL, roomsEndpoint } from "../config";
+// import { AUTH_TOKEN_ID, BASE_URL, ROOMS_ENDPOINT } from "../config";
 // import consumer from "../channels/consumer";
 // import { checkStatus } from "../utils/util";
 // import { useAuth } from "../hooks/use-auth";
@@ -14,7 +14,7 @@
 
 // useEffect(() => {
 //   //get initial rooms
-//   fetch(`${BASE_URL}${roomsEndpoint}`, {
+//   fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
 //     method: "GET",
 //     headers: {
 //       "Content-Type": "application/json",
@@ -65,7 +65,7 @@
 // function handleClick(e) {
 //   e.preventDefault();
 
-//   fetch(`${BASE_URL}${roomsEndpoint}`, {
+//   fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
 //     method: "POST",
 //     headers: {
 //       "Content-Type": "application/json",

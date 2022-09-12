@@ -3,8 +3,8 @@ import { checkStatus } from "../utils/util";
 import {
   AUTH_TOKEN_ID,
   BASE_URL,
-  loginEndpoint,
-  signupEndpoint,
+  LOGIN_ENDPOINT,
+  SIGNUP_ENDPOINT,
 } from "../config";
 
 const authContext = createContext();
@@ -36,7 +36,7 @@ function useProvideAuth() {
   const [user, setUser] = useState(getUsr());
 
   const login = ({ username, password }) => {
-    return fetch(`${BASE_URL}${loginEndpoint}`, {
+    return fetch(`${BASE_URL}${LOGIN_ENDPOINT}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function useProvideAuth() {
   };
 
   const signup = ({ username, password, bio = "", avatar = "" }) => {
-    return fetch(`${BASE_URL}${signupEndpoint}`, {
+    return fetch(`${BASE_URL}${SIGNUP_ENDPOINT}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

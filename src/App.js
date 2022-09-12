@@ -27,7 +27,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="chat" element={<Chat />} />
-          <Route path="rooms" element={<Rooms />} />
+          {/* <Route path="rooms" element={<Rooms />} /> */}
         </Routes>
       </div>
     </ThemeProvider>

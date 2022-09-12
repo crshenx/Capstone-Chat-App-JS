@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useAuth } from "../hooks/use-auth";
 import { useNavigate } from "react-router-dom";
+import SideBar from "./SideBar";
 
 function Profile() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Profile() {
 
   return (
     <div>
+      <SideBar />
       Profile
       <div>
         <Button

@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { checkStatus, rmJwtAsCookie, saveJwtAsCookie } from "../utils/util";
+import {
+  checkStatus,
+  rmJwtAsCookie,
+  getCookie,
+  saveJwtAsCookie,
+} from "../utils/util";
 import {
   AUTH_TOKEN_ID,
   BASE_URL,
@@ -21,12 +26,12 @@ export const useAuth = () => {
 };
 
 function storeUsr(user) {
-  localStorage.setItem("user", JSON.stringify(user));
+  sessionStorage.setItem("user", JSON.stringify(user));
 }
 
 function getUsr() {
   try {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(sessionStorage.getItem("user"));
   } catch (err) {
     console.warn("no user");
     console.info(err);
@@ -53,7 +58,7 @@ function useProvideAuth() {
     })
       .then(checkStatus)
       .then((data) => {
-        localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+        sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
         saveJwtAsCookie();
         setUser(data.user);
         storeUsr(data.user);
@@ -79,7 +84,7 @@ function useProvideAuth() {
     })
       .then(checkStatus)
       .then((data) => {
-        localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+        sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
         saveJwtAsCookie();
         const user = { username, bio, avatar };
         setUser(user);
@@ -89,15 +94,19 @@ function useProvideAuth() {
   };
 
   const logout = () => {
-    localStorage.removeItem(AUTH_TOKEN_ID);
-    localStorage.removeItem("user");
+    sessionStorage.removeItem(AUTH_TOKEN_ID);
+    sessionStorage.removeItem("user");
     rmJwtAsCookie();
     setUser(null);
     consumer.disconnect();
   };
 
   const isAuthed = () => {
-    return user && localStorage.getItem(AUTH_TOKEN_ID);
+    return (
+      user &&
+      sessionStorage.getItem(AUTH_TOKEN_ID) &&
+      getCookie("X-Authorization")
+    );
   };
 
   return {

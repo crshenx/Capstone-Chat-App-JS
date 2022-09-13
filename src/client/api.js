@@ -20,7 +20,7 @@ const API = {
     headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     }
   ) {
     return fetch(url, {
@@ -41,7 +41,7 @@ const API = {
     headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     }
   ) {
     fetch(url, {

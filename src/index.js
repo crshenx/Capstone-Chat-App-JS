@@ -47,7 +47,7 @@ window.GetRooms = () => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     },
   })
     .then((data) => {
@@ -64,7 +64,7 @@ window.CREATE_ROOM = (name) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     },
     body: JSON.stringify({
       room: {

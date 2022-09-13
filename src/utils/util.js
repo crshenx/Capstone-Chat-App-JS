@@ -18,10 +18,15 @@ export function deleteCookie(name) {
  * sets x-auth jwt cooke
  */
 export function saveJwtAsCookie() {
-  const token = localStorage.getItem("jwt");
+  const token = sessionStorage.getItem("jwt");
   document.cookie = `X-Authorization=${token};path=/`;
 }
 
 export function rmJwtAsCookie() {
   deleteCookie("X-Authorization");
+}
+
+export function getCookie(n) {
+  let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
+  return a ? a[1] : "";
 }

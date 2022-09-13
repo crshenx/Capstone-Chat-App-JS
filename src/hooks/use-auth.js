@@ -33,7 +33,7 @@ function useProvideAuth() {
   const [user, setUser] = useState(getUsr());
 
   const login = ({ username, password }) => {
-    API.login(username, password).then((data) => {
+    return API.login(username, password).then((data) => {
       sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
       saveJwtAsCookie();
       setUser(data.user);

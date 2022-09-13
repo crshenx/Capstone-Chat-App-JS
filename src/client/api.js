@@ -44,7 +44,7 @@ const API = {
       Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     }
   ) {
-    fetch(url, {
+    return fetch(url, {
       method: "POST",
       headers,
       body: JSON.stringify(payload),
@@ -88,7 +88,7 @@ const API = {
    * @returns {Promise}
    */
   login(username, password) {
-    this.post(
+    return this.post(
       `${BASE_URL}${LOGIN_ENDPOINT}`,
       { user: { username, password } },
       {
@@ -106,7 +106,7 @@ const API = {
    * @returns {Promise}
    */
   signup(username, password, bio = "", avatar = "") {
-    this.post(
+    return this.post(
       `${BASE_URL}${SIGNUP_ENDPOINT}`,
       {
         user: {

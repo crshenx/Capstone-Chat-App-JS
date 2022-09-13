@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { checkStatus } from "../utils/util";
+import { checkStatus, rmJwtAsCookie, saveJwtAsCookie } from "../utils/util";
 import {
   AUTH_TOKEN_ID,
   BASE_URL,
@@ -52,6 +52,7 @@ function useProvideAuth() {
       .then(checkStatus)
       .then((data) => {
         localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+        saveJwtAsCookie();
         setUser(data.user);
         storeUsr(data.user);
         return data.user;
@@ -87,6 +88,7 @@ function useProvideAuth() {
   const logout = () => {
     localStorage.removeItem(AUTH_TOKEN_ID);
     localStorage.removeItem("user");
+    rmJwtAsCookie();
     setUser(null);
   };
 

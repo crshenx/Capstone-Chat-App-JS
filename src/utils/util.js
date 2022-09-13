@@ -10,10 +10,18 @@ export function checkStatus(res) {
   return Promise.reject(res.statusText);
 }
 
+export function deleteCookie(name) {
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
 /**
  * sets x-auth jwt cooke
  */
 export function saveJwtAsCookie() {
   const token = localStorage.getItem("jwt");
   document.cookie = `X-Authorization=${token};path=/`;
+}
+
+export function rmJwtAsCookie() {
+  deleteCookie("X-Authorization");
 }

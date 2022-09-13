@@ -7,6 +7,8 @@ import {
   SIGNUP_ENDPOINT,
 } from "../config";
 
+import consumer from "../channels/consumer";
+
 const authContext = createContext();
 
 export function ProvideAuth({ children }) {
@@ -78,6 +80,7 @@ function useProvideAuth() {
       .then(checkStatus)
       .then((data) => {
         localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+        saveJwtAsCookie();
         const user = { username, bio, avatar };
         setUser(user);
         storeUsr(user);
@@ -90,6 +93,7 @@ function useProvideAuth() {
     localStorage.removeItem("user");
     rmJwtAsCookie();
     setUser(null);
+    consumer.disconnect();
   };
 
   const isAuthed = () => {

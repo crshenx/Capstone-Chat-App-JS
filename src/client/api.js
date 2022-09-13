@@ -8,12 +8,6 @@ import {
 } from "../config";
 import { checkStatus } from "../utils/util";
 
-const DEFAULT_HEADERS = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
-};
-
 const API = {
   /**
    * HTTP GET
@@ -21,7 +15,14 @@ const API = {
    * @param {Object} [headers=DEFAULT_HEADERS] - request headers
    * @returns {Promise} request promise, rejects on bad status
    */
-  get(url, headers = DEFAULT_HEADERS) {
+  get(
+    url,
+    headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
     return fetch(url, {
       method: "GET",
       headers,
@@ -34,7 +35,15 @@ const API = {
    * @param {Object} [headers=DEFAULT_HEADERS] - request headers
    * @returns {Promise} request promise, rejects on bad status
    */
-  post(url, payload, headers = DEFAULT_HEADERS) {
+  post(
+    url,
+    payload,
+    headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
     fetch(url, {
       method: "POST",
       headers,

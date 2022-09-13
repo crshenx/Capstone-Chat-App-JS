@@ -9,11 +9,10 @@
 
 import Card from "react-bootstrap/Card";
 
-function Messages({ message }) {
-  let currentUser = "Chris";
+function Messages({ message, user }) {
   return (
     <Card>
-      <Card.Header>{currentUser}</Card.Header>
+      <Card.Header>{user}</Card.Header>
       <Card.Body>
         <blockquote className="blockquote mb-0">
           <p>{message}</p>

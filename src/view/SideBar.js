@@ -25,13 +25,7 @@ import Chat from "./Chat";
 
 const drawerWidth = 240;
 
-export default function PermanentDrawerLeft(
-  {
-    // rooms,
-    // handleChange,
-    // handleClick,
-  }
-) {
+export default function PermanentDrawerLeft({ onRoomClick }) {
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({ name: "", is_private: false });
   const auth = useAuth();
@@ -163,7 +157,7 @@ export default function PermanentDrawerLeft(
           {rooms.map((room, index) => (
             // <Link to="/chat">
             <ListItem key={room.id} disablePadding>
-              <ListItemButton id={room.id} onClick={handleRoomClick}>
+              <ListItemButton id={room.id} onClick={onRoomClick}>
                 <ListItemText primary={room.name} />
               </ListItemButton>
             </ListItem>

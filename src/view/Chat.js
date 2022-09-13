@@ -34,29 +34,39 @@ function Chat() {
   }, [chatState.currentRoomID]);
 
   useEffect(() => {
-    sub.current = consumer.subscriptions.create(
-      {
-        channel: "ChatChannel",
-        room: chatState.currentRoomID,
-      },
-      {
-        recieved(data) {
-          console.log("recieved", data);
-          setChatState((state) => ({
-            ...state,
-            messages: [...state.messages, data.content],
-          }));
+    if (chatState.currentRoomID) {
+      sub.current = consumer.subscriptions.create(
+        {
+          channel: "ChatChannel",
+          room: chatState.currentRoomID,
         },
-        connected() {
-          console.log("connected");
-        },
-        disconnected() {
-          console.log("disconnected");
-        },
-      }
-    );
+        {
+          received(data) {
+            const message = { ...data.message, user: data.user };
+            console.log(message);
+            console.log("recieved", data);
+
+            setChatState((state) => ({
+              ...state,
+              messages: [...state.messages, message],
+            }));
+          },
+          connected() {
+            console.log("connected");
+          },
+          disconnected() {
+            console.log("disconnected");
+          },
+        }
+      );
+    }
+
     return function cleanup() {
-      sub.current.unsubscribe();
+      if (chatState.currentRoomID) {
+        console.log("unsubbing during cleanup");
+        sub.current.unsubscribe();
+      }
+      console.log("nothing to unsub");
     };
   }, [chatState.currentRoomID]);
 

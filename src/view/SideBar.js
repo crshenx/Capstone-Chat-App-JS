@@ -11,12 +11,8 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { Form, Button, ListGroup } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
-import { AUTH_TOKEN_ID, BASE_URL, ROOMS_ENDPOINT } from "../config";
+import { Form, Button } from "react-bootstrap";
 import consumer from "../channels/consumer";
-import { useAuth } from "../hooks/use-auth";
-import Chat from "./Chat";
 
 // import ListItemIcon from "@mui/material/ListItemIcon";
 // import InboxIcon from "@mui/icons-material/MoveToInbox";
@@ -28,28 +24,6 @@ const drawerWidth = 240;
 export default function PermanentDrawerLeft({ onRoomClick }) {
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({ name: "", is_private: false });
-  const auth = useAuth();
-  const loggedIn = auth.isAuthed();
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   //get initial rooms
-  //   fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
-  //     },
-  //   })
-  //     .then((data) => {
-  //       console.log(data);
-  //       setRooms(data.rooms);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, []);
 
   useEffect(() => {
     API.getRooms()
@@ -90,33 +64,12 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
     }
     setFormData({ ...formData, [name]: value });
   }
-  //   //console.log(formData);
-
   function handleClick(e) {
     e.preventDefault();
-
-    // fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     Authorization: `Bearer ${localStorage.getItem(AUTH_TOKEN_ID)}`,
-    //   },
-    //   body: JSON.stringify({
-    //     room: formData,
-    //   }),
-    // })
-    //   .then((data) => {
-    //     data.json();
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
     API.createRoom(formData.name, formData.is_private).then((data) => {
       console.log(data);
     });
   }
-
   function handleRoomClick(e) {
     e.stopPropagation();
     console.log(`target id: ${e.currentTarget.id}`);

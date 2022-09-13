@@ -17,7 +17,7 @@ function MessageFeed({ messages }) {
   return (
     // <div className={"overflow-scroll, w-75 p-3"}>
     <Container fluid>
-      <Stack gap={3}>
+      <Stack gap={5}>
         {/* <ListGroup> */}
         {renderMessages}
         {/* </ListGroup> */}

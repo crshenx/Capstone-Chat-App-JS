@@ -15,7 +15,6 @@ function Profile() {
 
   return (
     <div>
-      <SideBar />
       Profile
       <div>
         <Button

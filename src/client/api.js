@@ -63,14 +63,64 @@ const API = {
       },
     });
   },
+  /**
+   * Gets ALL public chat rooms
+   * @returns {Promise<Array>} resolves array of rooms
+   */
   getRooms() {
     return this.get(BASE_URL + ROOMS_ENDPOINT);
   },
+  /**
+   * Gets all messages for a given room
+   * @param {String | Number} roomID - room ID number
+   * @returns
+   */
   getMessages(roomID) {
     const url = `${MESSAGES_ENDPOINT}?${new URLSearchParams({
       roomID: roomID,
     })}`;
     return this.get(BASE_URL + url);
+  },
+  /**
+   * Authenticate with server
+   * @param {String} username - username
+   * @param {String} password - password
+   * @returns {Promise}
+   */
+  login(username, password) {
+    this.post(
+      `${BASE_URL}${LOGIN_ENDPOINT}`,
+      { user: { username, password } },
+      {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }
+    );
+  },
+  /**
+   * Authenticate with server
+   * @param {String} username - username
+   * @param {String} password - password
+   * @param {String} bio - profile bio
+   * @param {String} avatar - avatar placeholder
+   * @returns {Promise}
+   */
+  signup(username, password, bio = "", avatar = "") {
+    this.post(
+      `${BASE_URL}${SIGNUP_ENDPOINT}`,
+      {
+        user: {
+          username,
+          password,
+          bio,
+          avatar,
+        },
+      },
+      {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      }
+    );
   },
 };
 

@@ -1,18 +1,8 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import {
-  checkStatus,
-  rmJwtAsCookie,
-  getCookie,
-  saveJwtAsCookie,
-} from "../utils/util";
-import {
-  AUTH_TOKEN_ID,
-  BASE_URL,
-  LOGIN_ENDPOINT,
-  SIGNUP_ENDPOINT,
-} from "../config";
-
+import React, { useState, useContext, createContext } from "react";
+import { rmJwtAsCookie, getCookie, saveJwtAsCookie } from "../utils/util";
+import { AUTH_TOKEN_ID } from "../config";
 import consumer from "../channels/consumer";
+import API from "../client/api";
 
 const authContext = createContext();
 
@@ -43,54 +33,24 @@ function useProvideAuth() {
   const [user, setUser] = useState(getUsr());
 
   const login = ({ username, password }) => {
-    return fetch(`${BASE_URL}${LOGIN_ENDPOINT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-        },
-      }),
-    })
-      .then(checkStatus)
-      .then((data) => {
-        sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
-        saveJwtAsCookie();
-        setUser(data.user);
-        storeUsr(data.user);
-        return data.user;
-      });
+    API.login(username, password).then((data) => {
+      sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+      saveJwtAsCookie();
+      setUser(data.user);
+      storeUsr(data.user);
+      return data.user;
+    });
   };
 
   const signup = ({ username, password, bio = "", avatar = "" }) => {
-    return fetch(`${BASE_URL}${SIGNUP_ENDPOINT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-          bio,
-          avatar,
-        },
-      }),
-    })
-      .then(checkStatus)
-      .then((data) => {
-        sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
-        saveJwtAsCookie();
-        const user = { username, bio, avatar };
-        setUser(user);
-        storeUsr(user);
-        return user;
-      });
+    return API.signup(username, password, bio, avatar).then((data) => {
+      sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+      saveJwtAsCookie();
+      const user = { username, bio, avatar };
+      setUser(user);
+      storeUsr(user);
+      return user;
+    });
   };
 
   const logout = () => {

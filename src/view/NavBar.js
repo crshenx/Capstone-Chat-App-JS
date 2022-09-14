@@ -15,6 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { ProvideAuth, useAuth } from "../hooks/use-auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,7 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const auth = useAuth();
+  const userInfo = auth.user;
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -156,7 +158,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" elevation={0}>
         <Toolbar>
           <IconButton
             size="large"
@@ -173,7 +175,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            {`Welcome ${userInfo.username}!`}
           </Typography>
           <Search>
             <SearchIconWrapper>

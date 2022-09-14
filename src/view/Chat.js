@@ -7,22 +7,27 @@ import API from "../client/api";
 import consumer from "../channels/consumer";
 import { Box, Container } from "@mui/system";
 import NavBar from "./NavBar";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 function Chat() {
   const [chatState, setChatState] = useState({
     currentRoomID: null,
     messages: [],
+    roomName: "",
   });
 
   let sub = useRef();
 
   function onRoomClick(e) {
     e.stopPropagation();
-    console.log(`currentTargetId`, e.currentTarget.id);
-    console.log(`TargetId`, e.target.id);
-
-    setChatState((state) => ({ ...state, currentRoomID: e.currentTarget.id }));
+    // console.log(`currentTargetId`, e.currentTarget.id);
+    // console.log(`TargetId`, e.target.id);
+    // console.log(`currentTarget name`, e.currentTarget.textContent);
+    setChatState((state) => ({
+      ...state,
+      currentRoomID: e.currentTarget.id,
+      roomName: e.currentTarget.textContent,
+    }));
   }
 
   useEffect(() => {
@@ -95,12 +100,27 @@ function Chat() {
         messages={chatState.messages}
         sendMessage={sendMessage}
       />
-
+      {/* <Paper sx={{ mt: 10, position: "fixed" }}>
+        <Typography>{chatState.roomName}</Typography>
+      </Paper> */}{" "}
+      <Typography
+        variant="h6"
+        noWrap
+        component="div"
+        sx={{ border: "1px", mt: 9, ml: 30 }}
+      >
+        {chatState.roomName
+          ? chatState.roomName
+          : `Please choose or create a room!`}
+      </Typography>
       <Paper
+        elevation={0}
+        variant="outlined"
+        square
         sx={{
-          mt: 9,
-          overflowY: "scroll",
-          height: "85vh",
+          mt: 1,
+          overflowY: "auto",
+          height: "83vh",
           ml: 30,
           // border: 1,
           // borderRadius: 1,

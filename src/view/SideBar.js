@@ -136,7 +136,7 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
           </Typography>
         </Toolbar>
         <Divider />
-        <List sx={{ overflowY: "scroll", height: "80vh" }}>
+        <List sx={{ overflowY: "auto", height: "80vh" }}>
           {rooms.map((room, index) => (
             // <Link to="/chat">
             <ListItem key={room.id} disablePadding>

@@ -40,13 +40,11 @@ function Chat() {
         },
         {
           received(data) {
-            const message = { ...data.message, user: data.user };
-            console.log(message);
             console.log("recieved", data);
 
             setChatState((state) => ({
               ...state,
-              messages: [...state.messages, message],
+              messages: [...state.messages, data],
             }));
           },
           connected() {

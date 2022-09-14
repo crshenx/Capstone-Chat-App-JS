@@ -18,6 +18,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import SideBar from "./SideBar";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -57,17 +63,19 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
   }, []);
 
   function handleChange(e) {
-    const name = e.target.name;
+    const name = e.target.id;
     let value = e.target.value;
     if (e.target.type === "checkbox") {
       value = !formData.is_private;
     }
     setFormData({ ...formData, [name]: value });
   }
+
   function handleClick(e) {
     e.preventDefault();
     API.createRoom(formData.name, formData.is_private).then((data) => {
       console.log(data);
+      setFormData({ name: "", is_private: false });
     });
   }
   function handleRoomClick(e) {
@@ -76,7 +84,7 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
   }
 
   return (
-    <Box sx={{ display: "flex", position: "fixed" }}>
+    <Box sx={{ display: "flex", position: "fixed", height: "100vh" }}>
       <CssBaseline />
       <Drawer
         sx={{
@@ -93,11 +101,42 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
+            Create Room
+          </Typography>
+        </Toolbar>
+        <FormGroup>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleClick}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox id="is_private" checked={formData.is_private} />
+              }
+              label="Private"
+              onChange={handleChange}
+              onSubmit={handleClick}
+            />
+            <TextField
+              id="name"
+              label="Name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </Box>
+        </FormGroup>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
             Rooms
           </Typography>
         </Toolbar>
         <Divider />
-        <List>
+        <List sx={{ overflowY: "scroll", height: "80vh" }}>
           {rooms.map((room, index) => (
             // <Link to="/chat">
             <ListItem key={room.id} disablePadding>
@@ -108,7 +147,7 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
             //  </Link>
           ))}
         </List>
-        <Divider />
+        {/* <Divider /> */}
         <List>
           {/* {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>
@@ -120,33 +159,45 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
               </ListItemButton>
             </ListItem>
           ))} */}
-          <Form>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicEmail"
-              onChange={handleChange}
-            >
-              <Form.Label>Room Name</Form.Label>
-              <Form.Control
-                name="name"
-                type="text"
-                placeholder="Choose a Name"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check
-                name="is_private"
-                type="checkbox"
-                label="Check the box if you want the room to be private"
-                onChange={handleChange}
-                // checked={formData.is_private}
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleClick}>
-              Submit
-            </Button>
-          </Form>
         </List>
+        {/* <Form>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+            onChange={handleChange}
+          >
+            <Form.Label>Create Room</Form.Label>
+            <Form.Control name="name" type="text" placeholder="Choose a Name" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check
+              name="is_private"
+              type="checkbox"
+              label="Check the box if you want the room to be private"
+              onChange={handleChange}
+              // checked={formData.is_private}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={handleClick}>
+            Submit
+          </Button>
+        </Form> */}
+        {/* <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleClick}
+        >
+          <TextField
+            id="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </Box> */}
       </Drawer>
       {/* <Box
         component="main"

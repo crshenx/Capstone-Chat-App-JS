@@ -7,6 +7,7 @@ import API from "../client/api";
 import consumer from "../channels/consumer";
 import { Box, Container } from "@mui/system";
 import NavBar from "./NavBar";
+import { Paper } from "@mui/material";
 
 function Chat() {
   const [chatState, setChatState] = useState({
@@ -76,30 +77,38 @@ function Chat() {
     sub.current.send({ content: message });
   }
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView(/*{ behavior: "smooth" }*/);
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatState.messages]);
+
   return (
     <div>
-      {/* <Container fixed={false} sx={{ maxWidth: "100%" }}> */}
       <NavBar />
-      {/* </Container> */}
-      {/* <Container sx={{ mt: "50" }}> */}
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}
         sendMessage={sendMessage}
       />
-      {/* </Container> */}
-      <Box
-        // maxWidth="false"
 
+      <Paper
         sx={{
           mt: 9,
           overflowY: "scroll",
-          height: 700,
+          height: "85vh",
           ml: 30,
+          // border: 1,
+          // borderRadius: 1,
         }}
       >
         <MessageFeed messages={chatState.messages} />
-      </Box>
+        <div ref={messagesEndRef} />
+      </Paper>
       <Box sx={{ ml: 30 }}>
         <MessageInput sendMessage={sendMessage} />
       </Box>

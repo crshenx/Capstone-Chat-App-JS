@@ -5,6 +5,8 @@ import MessageInput from "./MessageInput";
 import SideBar from "./SideBar";
 import API from "../client/api";
 import consumer from "../channels/consumer";
+import { Box, Container } from "@mui/system";
+import NavBar from "./NavBar";
 
 function Chat() {
   const [chatState, setChatState] = useState({
@@ -40,11 +42,13 @@ function Chat() {
         },
         {
           received(data) {
+            const message = { ...data.message, user: data.user };
+            console.log(message);
             console.log("recieved", data);
 
             setChatState((state) => ({
               ...state,
-              messages: [...state.messages, data],
+              messages: [...state.messages, message],
             }));
           },
           connected() {
@@ -74,23 +78,31 @@ function Chat() {
 
   return (
     <div>
-      {/* <Container> */}
-      {/* <Row> */}
-      {/* </div> <Col sm={3} style={{ border: "2px" }}> */}
+      {/* <Container fixed={false} sx={{ maxWidth: "100%" }}> */}
+      <NavBar />
+      {/* </Container> */}
+      {/* <Container sx={{ mt: "50" }}> */}
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}
         sendMessage={sendMessage}
       />
-      {/* </Col> */}
-      {/* </Row>
-        <Row> */}
-      {/* <Col sm={9}> */}
-      {/* <MessageFeed messages={chatState.messages} />
-      <MessageInput sendMessage={sendMessage} /> */}
-      {/* </Col>{" "} */}
-      {/* </Row> */}
       {/* </Container> */}
+      <Box
+        // maxWidth="false"
+
+        sx={{
+          mt: 9,
+          overflowY: "scroll",
+          height: 700,
+          ml: 30,
+        }}
+      >
+        <MessageFeed messages={chatState.messages} />
+      </Box>
+      <Box sx={{ ml: 30 }}>
+        <MessageInput sendMessage={sendMessage} />
+      </Box>
     </div>
   );
 }

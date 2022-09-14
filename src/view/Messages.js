@@ -1,29 +1,33 @@
-// import React from "react";
-// import { ListGroup } from "react-bootstrap";
+import "./Messages.css";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import { Divider } from "@mui/material";
 
-// function Messages({ message }) {
-//   return <ListGroup.Item>{message}</ListGroup.Item>;
-// }
+function Message({ message, user }) {
+  const [hovered, setHovered] = useState(false);
+  const toggleHover = () => setHovered(!hovered);
 
-// export default Messages;
-
-import Card from "react-bootstrap/Card";
-
-function Messages({ message, user }) {
   return (
-    <Card>
-      <Card.Header>{user}</Card.Header>
-      <Card.Body>
-        <blockquote className="blockquote mb-0">
-          <p>{message}</p>
-          {/* <footer className="blockquote-footer">
-            We could just delete this{" "}
-            <cite title="Source Title">Bio Maybe?</cite>
-          </footer> */}
-        </blockquote>
-      </Card.Body>
-    </Card>
+    <div
+      className="message"
+      onMouseEnter={toggleHover}
+      onMouseLeave={toggleHover}
+    >
+      <div className="message__data">
+        <div className="message__left">
+          <Avatar>{user[0]}</Avatar>
+        </div>
+        <div className="message__right">
+          <div className="message__details">
+            <h5>{user}</h5>
+          </div>
+          <Divider />
+          <p className="message__text">{message}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default Messages;
+export default Message;

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
-import { Col, Container, Row } from "react-bootstrap";
+// import { Col, Container, Row } from "react-bootstrap";
 import SideBar from "./SideBar";
 import API from "../client/api";
 import consumer from "../channels/consumer";
@@ -70,24 +70,29 @@ function Chat() {
 
   function sendMessage(message) {
     console.log(message);
+    console.log("send message button");
     sub.current.send({ content: message });
   }
 
   return (
     <div>
-      <Container>
-        <Row>
-          <Col sm={3} style={{ border: "2px" }}>
-            <SideBar onRoomClick={onRoomClick} />
-          </Col>
-          {/* </Row>
+      {/* <Container> */}
+      {/* <Row> */}
+      {/* </div> <Col sm={3} style={{ border: "2px" }}> */}
+      <SideBar
+        onRoomClick={onRoomClick}
+        messages={chatState.messages}
+        sendMessage={sendMessage}
+      />
+      {/* </Col> */}
+      {/* </Row>
         <Row> */}
-          <Col sm={9}>
-            <MessageFeed messages={chatState.messages} />
-            <MessageInput sendMessage={sendMessage} />
-          </Col>{" "}
-        </Row>
-      </Container>
+      {/* <Col sm={9}> */}
+      {/* <MessageFeed messages={chatState.messages} />
+      <MessageInput sendMessage={sendMessage} /> */}
+      {/* </Col>{" "} */}
+      {/* </Row> */}
+      {/* </Container> */}
     </div>
   );
 }

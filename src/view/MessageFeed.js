@@ -3,7 +3,6 @@ import { Container, ListGroup, Stack } from "react-bootstrap";
 import Messages from "./Messages";
 
 function MessageFeed({ messages }) {
-  //   const messages = ["asdf", "asdffsadf", "asdfasdf", "fart"];
   const messageElems = messages.map((message, index) => {
     return (
       <Messages
@@ -15,15 +14,9 @@ function MessageFeed({ messages }) {
   });
 
   return (
-    // <div className={"overflow-scroll, w-75 p-3"}>
     <Container fluid>
-      <Stack gap={1}>
-        {/* <ListGroup> */}
-        {messageElems}
-        {/* </ListGroup> */}
-      </Stack>
+      <Stack gap={1}>{messageElems}</Stack>
     </Container>
-    // </div>
   );
 }
 

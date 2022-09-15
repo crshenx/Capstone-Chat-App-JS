@@ -39,9 +39,6 @@ export default function Login() {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  function handleClick() {
-    navigate("/signup");
-  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

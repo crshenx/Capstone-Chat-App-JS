@@ -71,10 +71,6 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
       setFormData({ name: "", is_private: false });
     });
   }
-  function handleRoomClick(e) {
-    e.stopPropagation();
-    console.log(`target id: ${e.currentTarget.id}`);
-  }
 
   return (
     <Box
@@ -132,14 +128,12 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
         </Toolbar>
         <Divider />
         <List sx={{ overflowY: "auto", height: "80%" }}>
-          {rooms.map((room, index) => (
-            // <Link to="/chat">
+          {rooms.map((room) => (
             <ListItem key={room.id} disablePadding>
               <ListItemButton id={room.id} onClick={onRoomClick}>
                 <ListItemText primary={room.name} />
               </ListItemButton>
             </ListItem>
-            //  </Link>
           ))}
         </List>
 

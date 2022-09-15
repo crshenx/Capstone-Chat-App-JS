@@ -7,7 +7,6 @@ import consumer from "../channels/consumer";
 import { Box } from "@mui/system";
 import NavBar from "./NavBar";
 import { Paper, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useRequireAuth } from "../hooks/use-require-auth";
 
 function Chat() {
@@ -19,7 +18,6 @@ function Chat() {
 
   //automatically redirects if not authenticated
   const auth = useRequireAuth();
-  const navigate = useNavigate();
   let sub = useRef();
 
   function onRoomClick(e) {

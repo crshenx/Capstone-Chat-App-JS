@@ -30,7 +30,6 @@ function MessageInput({ sendMessage }) {
           value={messageTyped}
           onChange={onMessageChange}
         />
-        {/* </FormControlLabel> */}
       </Box>
     </FormGroup>
   );

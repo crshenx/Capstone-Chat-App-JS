@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -71,6 +72,7 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
       setFormData({ name: "", is_private: false });
     });
   }
+
   function handleRoomClick(e) {
     e.stopPropagation();
     console.log(`target id: ${e.currentTarget.id}`);
@@ -131,7 +133,7 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
           </Typography>
         </Toolbar>
         <Divider />
-        <List sx={{ overflowY: "auto", height: "80%" }}>
+        <List sx={{ overflowY: "auto", height: "80vh" }}>
           {rooms.map((room, index) => (
             // <Link to="/chat">
             <ListItem key={room.id} disablePadding>

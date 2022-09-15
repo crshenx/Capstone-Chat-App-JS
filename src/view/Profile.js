@@ -21,12 +21,12 @@ function Profile() {
           onClick={(e) => {
             e.stopPropagation();
             auth.logout();
+            navigate("/login");
           }}
         >
           Logout
         </Button>
         <Button onClick={() => navigate("/chat")}>To Chat</Button>
-        <Button onClick={() => navigate("/rooms")}>To Rooms</Button>
       </div>
     </div>
   );

@@ -6,19 +6,15 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { ProvideAuth, useAuth } from "../hooks/use-auth";
-import ProfileDrawer from "./ProfileDrawer";
+import { useAuth } from "../hooks/use-auth";
 import MobileMenu from "./MobileMenu";
 import NavMenu from "./NavMenu";
+import { useNavigate } from "react-router-dom";
+import ProfileDrawer from "./ProfileDrawer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ handleProfileOpen }) {
+export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const auth = useAuth();
@@ -69,10 +65,11 @@ export default function PrimarySearchAppBar({ handleProfileOpen }) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    handleProfileOpen(event);
+    // handleProfileOpen(event);
   };
 
   const handleMobileMenuClose = () => {
@@ -87,9 +84,13 @@ export default function PrimarySearchAppBar({ handleProfileOpen }) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  function navigateProfile() {
+    navigate("/profile");
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <ProfileDrawer />
       <AppBar position="fixed" elevation={0}>
         <Toolbar>
           <IconButton
@@ -158,6 +159,7 @@ export default function PrimarySearchAppBar({ handleProfileOpen }) {
         handleMenuClose={handleMenuClose}
         anchorEl={anchorEl}
         menuId={menuId}
+        navigateProfile={navigateProfile}
       />
     </Box>
   );

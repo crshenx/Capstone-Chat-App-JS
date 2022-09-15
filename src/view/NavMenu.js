@@ -8,6 +8,7 @@ export default function NavMenu({
   handleMenuClose,
   anchorEl,
   menuId,
+  navigateProfile,
 }) {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function NavMenu({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={navigateProfile}>Profile</MenuItem>
       <MenuItem
         onClick={(e) => {
           e.stopPropagation();

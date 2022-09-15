@@ -4,7 +4,7 @@ import Messages from "./Messages";
 
 function MessageFeed({ messages }) {
   //   const messages = ["asdf", "asdffsadf", "asdfasdf", "fart"];
-  const renderMessages = messages.map((message, index) => {
+  const messageElems = messages.map((message, index) => {
     return (
       <Messages
         user={message.user.username}
@@ -19,7 +19,7 @@ function MessageFeed({ messages }) {
     <Container fluid>
       <Stack gap={1}>
         {/* <ListGroup> */}
-        {renderMessages}
+        {messageElems}
         {/* </ListGroup> */}
       </Stack>
     </Container>

@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
-import { useAuth } from "../hooks/use-auth";
+import { useRequireAuth } from "../hooks/use-require-auth";
 import { useNavigate } from "react-router-dom";
-import SideBar from "./SideBar";
 
 function Profile() {
   const navigate = useNavigate();
-  const auth = useAuth();
-  useEffect(() => {
-    if (!auth.isAuthed()) {
-      navigate("login");
-    }
-  }, [auth]);
+  const auth = useRequireAuth();
 
   return (
     <div>

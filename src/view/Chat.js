@@ -7,9 +7,8 @@ import consumer from "../channels/consumer";
 import { Box } from "@mui/system";
 import NavBar from "./NavBar";
 import { Paper, Typography } from "@mui/material";
-import ProfileDrawer from "./ProfileDrawer";
-import { useAuth } from "../hooks/use-auth";
 import { useNavigate } from "react-router-dom";
+import { useRequireAuth } from "../hooks/use-require-auth";
 
 function Chat() {
   const [chatState, setChatState] = useState({
@@ -18,15 +17,9 @@ function Chat() {
     roomName: "",
   });
 
-  const auth = useAuth();
+  //automatically redirects if not authenticated
+  const auth = useRequireAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!auth.isAuthed()) {
-      navigate("login");
-    }
-  }, [auth]);
-
   let sub = useRef();
 
   function onRoomClick(e) {
@@ -56,13 +49,9 @@ function Chat() {
         },
         {
           received(data) {
-            const message = { ...data.message, user: data.user };
-            console.log(message);
-            console.log("recieved", data);
-
             setChatState((state) => ({
               ...state,
-              messages: [...state.messages, message],
+              messages: [...state.messages, data],
             }));
           },
           connected() {
@@ -102,7 +91,7 @@ function Chat() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar userInfo={auth.user} />
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}

@@ -10,7 +10,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useAuth } from "../hooks/use-auth";
 import MobileMenu from "./MobileMenu";
 import NavMenu from "./NavMenu";
 import { useNavigate } from "react-router-dom";
@@ -56,11 +55,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ userInfo }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const auth = useAuth();
-  const userInfo = auth.user;
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const menuId = "primary-search-account-menu";
@@ -108,7 +105,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            {`Welcome ${userInfo.username}!`}
+            {userInfo ? `Welcome ${userInfo.username}!` : ""}
           </Typography>
           <Search>
             <SearchIconWrapper>

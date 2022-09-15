@@ -19,7 +19,7 @@ function Message({ message, user }) {
         </div>
         <div className="message__right">
           <div className="message__details">
-            <h5>{user}</h5>
+            <div className="username-div">{user}</div>
           </div>
           <Divider />
           <p className="message__text">{message}</p>

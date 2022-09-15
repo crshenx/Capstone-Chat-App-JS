@@ -8,6 +8,9 @@ import consumer from "../channels/consumer";
 import { Box, Container } from "@mui/system";
 import NavBar from "./NavBar";
 import { Paper, Typography } from "@mui/material";
+import ProfileDrawer from "./ProfileDrawer";
+import { useAuth } from "../hooks/use-auth";
+import { useNavigate } from "react-router-dom";
 
 function Chat() {
   const [chatState, setChatState] = useState({
@@ -15,6 +18,15 @@ function Chat() {
     messages: [],
     roomName: "",
   });
+
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isAuthed()) {
+      navigate("login");
+    }
+  }, [auth]);
 
   let sub = useRef();
 
@@ -92,9 +104,13 @@ function Chat() {
     scrollToBottom();
   }, [chatState.messages]);
 
+  function handleProfileOpen() {
+    return <ProfileDrawer />;
+  }
+
   return (
     <div>
-      <NavBar />
+      <NavBar handleProfileOpen={handleProfileOpen} />
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}
@@ -103,29 +119,38 @@ function Chat() {
       {/* <Paper sx={{ mt: 10, position: "fixed" }}>
         <Typography>{chatState.roomName}</Typography>
       </Paper> */}{" "}
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
-        sx={{ border: "1px", mt: 9, ml: 30 }}
-      >
-        {chatState.roomName
-          ? chatState.roomName
-          : `Please choose or create a room!`}
-      </Typography>
       <Paper
         elevation={0}
         variant="outlined"
         square
         sx={{
-          mt: 1,
+          mt: "6.4rem",
           overflowY: "auto",
           height: "83vh",
           ml: 30,
+
           // border: 1,
           // borderRadius: 1,
         }}
       >
+        <Typography
+          // variant="h6"
+          noWrap
+          component="div"
+          sx={{
+            border: "1px",
+            position: "fixed",
+            top: "4rem",
+            width: "100%",
+            fontSize: "1.6rem",
+            backgroundColor: "text.secondary",
+            color: "white",
+          }}
+        >
+          {chatState.roomName
+            ? chatState.roomName
+            : `Please choose or create a room!`}
+        </Typography>
         <MessageFeed messages={chatState.messages} />
         <div ref={messagesEndRef} />
       </Paper>

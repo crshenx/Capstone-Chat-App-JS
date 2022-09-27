@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
-import SideBar from "./SideBar";
-import API from "../client/api";
-import consumer from "../channels/consumer";
+import SideBar from "../SideBar";
+import API from "../../client/api";
+import consumer from "../../channels/consumer";
 import { Box } from "@mui/system";
-import NavBar from "./NavBar";
+import NavBar from "../NavBar";
 import { Paper, Typography } from "@mui/material";
-import { useRequireAuth } from "../hooks/use-require-auth";
+import { useRequireAuth } from "../../hooks/use-require-auth";
 
 function Chat() {
   const [chatState, setChatState] = useState({

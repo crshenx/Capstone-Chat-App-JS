@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ProvideAuth } from "./hooks/use-auth";
 import { saveJwtAsCookie } from "./utils/util";
+import { AUTH_TOKEN_ID, BASE_URL, ROOMS_ENDPOINT } from "./config";
 
 import consumer from "./channels/consumer";
 
@@ -21,6 +22,63 @@ window.createConnection = () => {
       },
     }
   );
+};
+
+// checking i can push
+
+window.SubRooms = () => {
+  window.ROOMS_CHANNEL = consumer.subscriptions.create(
+    { channel: "RoomsChannel" },
+    {
+      received: function (data) {
+        console.log(data);
+        console.log(JSON.stringify(data));
+      },
+      connected() {
+        console.log("Connected");
+      },
+    }
+  );
+};
+
+window.GetRooms = () => {
+  return fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    },
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+window.CREATE_ROOM = (name) => {
+  return fetch(`${BASE_URL}${ROOMS_ENDPOINT}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    },
+    body: JSON.stringify({
+      room: {
+        name: name,
+        is_private: false,
+      },
+    }),
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 window.SET_COOKIE = () => {

@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import { checkStatus } from "../utils/util";
-import {
-  AUTH_TOKEN_ID,
-  BASE_URL,
-  loginEndpoint,
-  signupEndpoint,
-} from "../config";
+import React, { useState, useContext, createContext } from "react";
+import { rmJwtAsCookie, getCookie, saveJwtAsCookie } from "../utils/util";
+import { AUTH_TOKEN_ID } from "../config";
+import consumer from "../channels/consumer";
+import API from "../client/api";
 
 const authContext = createContext();
 
@@ -19,12 +16,12 @@ export const useAuth = () => {
 };
 
 function storeUsr(user) {
-  localStorage.setItem("user", JSON.stringify(user));
+  sessionStorage.setItem("user", JSON.stringify(user));
 }
 
 function getUsr() {
   try {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(sessionStorage.getItem("user"));
   } catch (err) {
     console.warn("no user");
     console.info(err);
@@ -36,62 +33,40 @@ function useProvideAuth() {
   const [user, setUser] = useState(getUsr());
 
   const login = ({ username, password }) => {
-    return fetch(`${BASE_URL}${loginEndpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-        },
-      }),
-    })
-      .then(checkStatus)
-      .then((data) => {
-        localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
-        setUser(data.user);
-        storeUsr(data.user);
-        return data.user;
-      });
+    return API.login(username, password).then((data) => {
+      sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+      saveJwtAsCookie();
+      setUser(data.user);
+      storeUsr(data.user);
+      return data.user;
+    });
   };
 
   const signup = ({ username, password, bio = "", avatar = "" }) => {
-    return fetch(`${BASE_URL}${signupEndpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          username,
-          password,
-          bio,
-          avatar,
-        },
-      }),
-    })
-      .then(checkStatus)
-      .then((data) => {
-        localStorage.setItem(AUTH_TOKEN_ID, data.jwt);
-        const user = { username, bio, avatar };
-        setUser(user);
-        storeUsr(user);
-        return user;
-      });
+    return API.signup(username, password, bio, avatar).then((data) => {
+      sessionStorage.setItem(AUTH_TOKEN_ID, data.jwt);
+      saveJwtAsCookie();
+      const user = { username, bio, avatar };
+      setUser(user);
+      storeUsr(user);
+      return user;
+    });
   };
 
   const logout = () => {
-    localStorage.removeItem(AUTH_TOKEN_ID);
-    localStorage.removeItem("user");
+    sessionStorage.removeItem(AUTH_TOKEN_ID);
+    sessionStorage.removeItem("user");
+    rmJwtAsCookie();
     setUser(null);
+    consumer.disconnect();
   };
 
   const isAuthed = () => {
-    return user && localStorage.getItem(AUTH_TOKEN_ID);
+    return (
+      user &&
+      sessionStorage.getItem(AUTH_TOKEN_ID) &&
+      getCookie("X-Authorization")
+    );
   };
 
   return {

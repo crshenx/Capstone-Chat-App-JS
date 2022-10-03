@@ -13,7 +13,7 @@ function Profile() {
   const [userEdit, setuserEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   console.log(auth.user.username);
-  // console.log(imageFile.name);
+  console.log(imageFile);
 
   function toggleEdit() {
     setuserEdit(!userEdit);
@@ -27,6 +27,7 @@ function Profile() {
 
   function profileSubmit() {
     console.log(`profile submit clicked`);
+    API.uploadImage(imageFile);
   }
 
   return (

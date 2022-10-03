@@ -50,6 +50,22 @@ const API = {
       body: JSON.stringify(payload),
     }).then(checkStatus);
   },
+  // attempt to create a patch request although i probably dont need to do this
+  patch(
+    url,
+    payload,
+    headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
+    return fetch(url, {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify(payload),
+    }).then(checkStatus);
+  },
   /**
    * Create chat room
    * @param {String} name - chatroom name
@@ -121,6 +137,15 @@ const API = {
         Accept: "application/json",
       }
     );
+  },
+  // upload fetch request
+  uploadImage(avatar_images) {
+    // need to add upload endpoint to config
+    return this.post(`${BASE_URL}/api/v1/avatar_images`, avatar_images, {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    });
   },
 };
 

@@ -6,7 +6,7 @@ import {
   ROOMS_ENDPOINT,
   MESSAGES_ENDPOINT,
 } from "../config";
-import { checkStatus } from "../utils/util";
+import { checkStatus, blobToBase64 } from "../utils/util";
 
 const API = {
   /**
@@ -139,13 +139,18 @@ const API = {
     );
   },
   // upload fetch request
-  uploadImage(avatar_images) {
+  async uploadImage(avatar_blob) {
     // need to add upload endpoint to config
-    return this.post(`${BASE_URL}/api/v1/attach`, avatar_images, {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
-    });
+    const base64 = await blobToBase64(avatar_blob);
+    return this.post(
+      `${BASE_URL}/api/v1/attach`,
+      { picture: base64 },
+      {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+      }
+    );
   },
 };
 

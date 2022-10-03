@@ -30,3 +30,12 @@ export function getCookie(n) {
   let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
   return a ? a[1] : "";
 }
+
+export function blobToBase64(blob) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    // reader.readAsBinaryString(blob);
+    reader.readAsDataURL(blob);
+  });
+}

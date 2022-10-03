@@ -12,7 +12,7 @@ function Profile() {
   const auth = useRequireAuth();
   const [userEdit, setuserEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  console.log(auth.user);
+  console.log("user", auth.user);
   console.log(imageFile);
 
   function toggleEdit() {
@@ -27,6 +27,7 @@ function Profile() {
 
   function profileSubmit() {
     console.log(`profile submit clicked`);
+
     API.uploadImage(imageFile);
   }
 
@@ -47,6 +48,7 @@ function Profile() {
         <Box
           component="form"
           sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
             "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
           noValidate
@@ -92,7 +94,11 @@ function Profile() {
               accept="image/*"
               multiple
               type="file"
-              onChange={(e) => setImageFile(e.target.files[0])}
+              onChange={(e) =>
+                setImageFile(
+                  new Blob([e.target.files[0]], { type: "image/jpeg" })
+                )
+              }
             />
           </Button>
           <Button onClick={profileSubmit}>Submit Changes</Button>

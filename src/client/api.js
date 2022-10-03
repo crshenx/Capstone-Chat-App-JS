@@ -141,7 +141,7 @@ const API = {
   // upload fetch request
   uploadImage(avatar_images) {
     // need to add upload endpoint to config
-    return this.post(`${BASE_URL}/api/v1/avatar_images`, avatar_images, {
+    return this.post(`${BASE_URL}/api/v1/attach`, avatar_images, {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,

@@ -12,7 +12,7 @@ function Profile() {
   const auth = useRequireAuth();
   const [userEdit, setuserEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  console.log(auth.user.username);
+  console.log(auth.user);
   console.log(imageFile);
 
   function toggleEdit() {

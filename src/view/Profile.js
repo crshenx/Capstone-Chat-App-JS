@@ -27,7 +27,10 @@ function Profile() {
 
   function profileSubmit() {
     console.log(`profile submit clicked`);
-    API.uploadImage(imageFile).then((data) => {
+    const formData = new FormData();
+    formData.append("picture", imageFile);
+    API.uploadImage(formData).then((data) => {
+      console.log("upload image result data", data);
       auth.updateUser(data);
     });
   }
@@ -95,11 +98,7 @@ function Profile() {
               accept="image/*"
               multiple
               type="file"
-              onChange={(e) =>
-                setImageFile(
-                  new Blob([e.target.files[0]], { type: "image/jpeg" })
-                )
-              }
+              onChange={(e) => setImageFile(e.target.files[0])}
             />
           </Button>
           <Button onClick={profileSubmit}>Submit Changes</Button>

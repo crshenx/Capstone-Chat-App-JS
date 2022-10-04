@@ -50,6 +50,21 @@ const API = {
       body: JSON.stringify(payload),
     }).then(checkStatus);
   },
+
+  sendForm(
+    url,
+    formData,
+    headers = {
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
+    return fetch(url, {
+      method: "POST",
+      headers,
+      body: formData,
+    }).then(checkStatus);
+  },
+
   // attempt to create a patch request although i probably dont need to do this
   patch(
     url,
@@ -140,18 +155,13 @@ const API = {
   },
   // upload fetch request
 
-  async uploadImage(avatar_blob) {
+  async uploadImage(formData) {
     // need to add upload endpoint to config
-    const base64 = await blobToBase64(avatar_blob);
-    return this.post(
-      `${BASE_URL}/api/v1/attach`,
-      { picture: base64 },
-      {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
-      }
-    );
+
+    return this.sendForm(`${BASE_URL}/api/v1/attach`, formData, {
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    });
   },
 };
 

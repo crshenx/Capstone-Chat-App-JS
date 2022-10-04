@@ -3,7 +3,6 @@ import { rmJwtAsCookie, getCookie, saveJwtAsCookie } from "../utils/util";
 import { AUTH_TOKEN_ID } from "../config";
 import consumer from "../channels/consumer";
 import API from "../client/api";
-import { StarBorderPurple500Sharp } from "@mui/icons-material";
 
 const authContext = createContext();
 

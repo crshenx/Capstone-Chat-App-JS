@@ -139,6 +139,7 @@ const API = {
     );
   },
   // upload fetch request
+
   async uploadImage(avatar_blob) {
     // need to add upload endpoint to config
     const base64 = await blobToBase64(avatar_blob);

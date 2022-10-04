@@ -3,6 +3,7 @@ import { rmJwtAsCookie, getCookie, saveJwtAsCookie } from "../utils/util";
 import { AUTH_TOKEN_ID } from "../config";
 import consumer from "../channels/consumer";
 import API from "../client/api";
+import { StarBorderPurple500Sharp } from "@mui/icons-material";
 
 const authContext = createContext();
 
@@ -53,6 +54,11 @@ function useProvideAuth() {
     });
   };
 
+  const updateUser = (user) => {
+    setUser(user);
+    storeUsr(user);
+  };
+
   const logout = () => {
     sessionStorage.removeItem(AUTH_TOKEN_ID);
     sessionStorage.removeItem("user");
@@ -71,6 +77,7 @@ function useProvideAuth() {
 
   return {
     user,
+    updateUser,
     isAuthed,
     login,
     logout,

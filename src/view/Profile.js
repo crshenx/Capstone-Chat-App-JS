@@ -11,7 +11,7 @@ function Profile() {
   const navigate = useNavigate();
   const auth = useRequireAuth();
   const [userEdit, setuserEdit] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState("");
   console.log("user", auth.user);
   console.log(imageFile);
 
@@ -27,8 +27,9 @@ function Profile() {
 
   function profileSubmit() {
     console.log(`profile submit clicked`);
-
-    API.uploadImage(imageFile);
+    API.uploadImage(imageFile).then((data) => {
+      auth.updateUser(data);
+    });
   }
 
   return (
@@ -84,7 +85,7 @@ function Profile() {
           />
           <Avatar
             alt="Remy Sharp"
-            src={imageURL}
+            src={auth.user.picture || ""}
             sx={{ width: 56, height: 56 }}
           />
           <Button variant="contained" component="label">

@@ -53,6 +53,11 @@ function useProvideAuth() {
     });
   };
 
+  const updateUser = (user) => {
+    setUser(user);
+    storeUsr(user);
+  };
+
   const logout = () => {
     sessionStorage.removeItem(AUTH_TOKEN_ID);
     sessionStorage.removeItem("user");
@@ -71,6 +76,7 @@ function useProvideAuth() {
 
   return {
     user,
+    updateUser,
     isAuthed,
     login,
     logout,

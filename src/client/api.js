@@ -6,7 +6,7 @@ import {
   ROOMS_ENDPOINT,
   MESSAGES_ENDPOINT,
 } from "../config";
-import { checkStatus } from "../utils/util";
+import { checkStatus, blobToBase64 } from "../utils/util";
 
 const API = {
   /**
@@ -46,6 +46,37 @@ const API = {
   ) {
     return fetch(url, {
       method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    }).then(checkStatus);
+  },
+
+  sendForm(
+    url,
+    formData,
+    headers = {
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
+    return fetch(url, {
+      method: "POST",
+      headers,
+      body: formData,
+    }).then(checkStatus);
+  },
+
+  // attempt to create a patch request although i probably dont need to do this
+  patch(
+    url,
+    payload,
+    headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
+    return fetch(url, {
+      method: "PATCH",
       headers,
       body: JSON.stringify(payload),
     }).then(checkStatus);
@@ -121,6 +152,16 @@ const API = {
         Accept: "application/json",
       }
     );
+  },
+  // upload fetch request
+
+  async uploadImage(formData) {
+    // need to add upload endpoint to config
+
+    return this.sendForm(`${BASE_URL}/api/v1/attach`, formData, {
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    });
   },
 };
 

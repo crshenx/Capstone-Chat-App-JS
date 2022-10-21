@@ -3,7 +3,7 @@ export const AUTH_TOKEN_ID = "jwt";
 // changed to https instead of http
 export const protocol = "https";
 //port changed for heroku
-export const PORT = "3000";
+export const PORT = "443";
 // export const PORT = "443";
 export const HOST = window.location.host.split(":")[0];
 // export const BASE_URL = `${protocol}://${HOST}:${PORT}`;

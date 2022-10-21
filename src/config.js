@@ -1,5 +1,7 @@
 export const AUTH_TOKEN_ID = "jwt";
-export const protocol = "http";
+// export const protocol = "http";
+// changed to https instead of http
+export const protocol = "https";
 export const PORT = "3000";
 export const HOST = window.location.host.split(":")[0];
 // export const BASE_URL = `${protocol}://${HOST}:${PORT}`;

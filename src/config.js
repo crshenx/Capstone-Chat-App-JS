@@ -7,6 +7,7 @@ export const protocol = "https";
 export const PORT = "443";
 export const HOST = window.location.host.split(":")[0];
 // export const BASE_URL = `${protocol}://${HOST}:${PORT}`;
+export const WEBSOCKETHOST = `capstonechatapp.herokuapp.com`;
 export const BASE_URL = `${protocol}://capstonechatapp.herokuapp.com`;
 export const API_VER = `/api/v1/`;
 export const LOGIN_ENDPOINT = `${API_VER}login`;

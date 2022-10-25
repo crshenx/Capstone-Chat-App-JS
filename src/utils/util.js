@@ -19,7 +19,7 @@ export function deleteCookie(name) {
  */
 export function saveJwtAsCookie() {
   const token = sessionStorage.getItem("jwt");
-  document.cookie = `X-Authorization=${token};path=/`;
+  document.cookie = `X-Authorization=${token};path=/;domain=capstonechat.herokuapp.com;`;
 }
 
 export function rmJwtAsCookie() {

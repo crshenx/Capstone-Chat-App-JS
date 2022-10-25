@@ -28,7 +28,8 @@ export function rmJwtAsCookie() {
 
 export function getCookie(n) {
   let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
-  return a ? a[2] : "";
+  console.log(`get cookie func called, a =${a} `);
+  return a ? a[1] : "";
 }
 
 export function blobToBase64(blob) {

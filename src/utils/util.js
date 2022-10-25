@@ -28,6 +28,7 @@ export function rmJwtAsCookie() {
 
 export function getCookie(n) {
   let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
+  console.log(`get cookie func called, a =${a} `);
   return a ? a[1] : "";
 }
 

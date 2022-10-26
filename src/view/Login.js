@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../hooks/use-auth";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -122,7 +122,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="signup" variant="body2">
+                <Link component={RouterLink} to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

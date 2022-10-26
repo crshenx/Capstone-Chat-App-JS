@@ -10,7 +10,7 @@ function Message({ message, user }) {
   const toggleHover = () => setHovered(!hovered);
   //const auth = useRequireAuth();
   // console.log(user.picture);
-  console.log(user);
+  // console.log(user);
   return (
     <div
       className="message"

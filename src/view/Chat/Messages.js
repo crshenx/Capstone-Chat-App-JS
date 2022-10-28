@@ -4,13 +4,33 @@ import Avatar from "@mui/material/Avatar";
 import { Divider } from "@mui/material";
 import { BASE_URL } from "../../config";
 import { useRequireAuth } from "../../hooks/use-require-auth";
+import { CompressOutlined } from "@mui/icons-material";
 
-function Message({ message, user }) {
+function Message({ message, user, data }) {
   const [hovered, setHovered] = useState(false);
   const toggleHover = () => setHovered(!hovered);
   //const auth = useRequireAuth();
   // console.log(user.picture);
   // console.log(user);
+  console.log(data);
+  function utcToLocal(utcTime) {
+    let date = new Date(utcTime);
+    let localTime = date.toLocaleString();
+    let localTimeNoSeconds =
+      localTime.split(":")[0] +
+      ":" +
+      localTime.split(":")[1] +
+      " " +
+      localTime.split(" ")[2].toLowerCase();
+    return localTimeNoSeconds;
+  }
+  console.log(`utc to local: `, utcToLocal(data.created_at));
+
+  // console.log(
+  //   `date obj for message: ${data.created_at}`,
+  //   `gets ${reformatDate(data.created_at)}`
+  // );
+
   return (
     <div
       className="message"
@@ -26,6 +46,7 @@ function Message({ message, user }) {
         <div className="message__right">
           <div className="message__details">
             <div className="username-div">{user.username}</div>
+            <div className="time-div">{utcToLocal(data.created_at)}</div>
           </div>
           <Divider />
           <p className="message__text">{message}</p>

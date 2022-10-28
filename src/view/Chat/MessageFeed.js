@@ -5,7 +5,12 @@ import Messages from "./Messages";
 function MessageFeed({ messages }) {
   const messageElems = messages.map((message, index) => {
     return (
-      <Messages user={message.user} message={message.content} key={index} />
+      <Messages
+        user={message.user}
+        message={message.content}
+        data={message}
+        key={index}
+      />
     );
   });
 

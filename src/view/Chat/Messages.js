@@ -12,7 +12,7 @@ function Message({ message, user, data }) {
   //const auth = useRequireAuth();
   // console.log(user.picture);
   // console.log(user);
-  console.log(data);
+  // console.log(data);
   function utcToLocal(utcTime) {
     let date = new Date(utcTime);
     let localTime = date.toLocaleString();
@@ -24,12 +24,6 @@ function Message({ message, user, data }) {
       localTime.split(" ")[2].toLowerCase();
     return localTimeNoSeconds;
   }
-  console.log(`utc to local: `, utcToLocal(data.created_at));
-
-  // console.log(
-  //   `date obj for message: ${data.created_at}`,
-  //   `gets ${reformatDate(data.created_at)}`
-  // );
 
   return (
     <div

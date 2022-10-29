@@ -19,7 +19,7 @@ function MessageInput({ sendMessage }) {
 
   return (
     <FormGroup>
-      <Box component="form" onSubmit={handleSend} sx={{ maxWidth: "100%" }}>
+      <Box component="form" onSubmit={handleSend}>
         {/* <FormControlLabel control={messageTyped}> */}
         <TextField
           id="messageInput"

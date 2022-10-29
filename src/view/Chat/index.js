@@ -4,9 +4,8 @@ import MessageInput from "./MessageInput";
 import SideBar from "../SideBar";
 import API from "../../client/api";
 import consumer from "../../channels/consumer";
-import { Box } from "@mui/system";
 import NavBar from "../NavBar";
-import { Paper, Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { useRequireAuth } from "../../hooks/use-require-auth";
 
 function Chat() {
@@ -88,45 +87,58 @@ function Chat() {
   }, [chatState.messages]);
 
   return (
-    <div>
-      <NavBar userInfo={auth.user} />
+    <div style={{ overflowY: "hidden" }}>
+      <NavBar userInfo={auth.user} chat={chatState} />
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}
         sendMessage={sendMessage}
       />
-      <Paper
-        elevation={0}
-        variant="outlined"
-        square
+      {/* <Typography
+        noWrap
+        component="div"
         sx={{
-          mt: "4.2rem",
-          overflowY: "auto",
-          height: "83vh",
           ml: 30,
+          border: "1px",
+          position: "fixed",
+          top: "4rem",
+          width: "100%",
+          fontSize: "1.6rem",
+          backgroundColor: "#616161",
+          color: "white",
+          zIndex: 1000,
         }}
       >
-        <Typography
-          noWrap
-          component="div"
-          sx={{
-            border: "1px",
-            position: "fixed",
-            top: "4rem",
-            width: "100%",
-            fontSize: "1.6rem",
-            backgroundColor: "text.secondary",
-            color: "white",
-          }}
-        >
-          {chatState.roomName
-            ? chatState.roomName
-            : `Please choose or create a room!`}
-        </Typography>
+        {chatState.roomName
+          ? chatState.roomName
+          : `Please choose or create a room!`}
+      </Typography> */}
+      <Box
+        fluid
+        sx={{
+          mt: "4.2rem",
+          mb: ".7rem",
+          height: "100%",
+          ml: 30,
+          paddingBottom: "3rem",
+          overflow: "hidden",
+          alignContent: "bottom",
+        }}
+      >
         <MessageFeed messages={chatState.messages} />
         <div ref={messagesEndRef} />
-      </Paper>
-      <Box sx={{ ml: 30 }}>
+      </Box>
+      <Box
+        sx={{
+          ml: 30,
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          paddingTop: "0rem",
+          zIndex: 1000,
+          backgroundColor: "white",
+        }}
+      >
         <MessageInput sendMessage={sendMessage} />
       </Box>
     </div>

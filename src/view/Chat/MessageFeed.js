@@ -1,5 +1,6 @@
+import { Stack } from "@mui/material";
 import React from "react";
-import { Container, ListGroup, Stack } from "react-bootstrap";
+// import { Stack } from "react-bootstrap";
 import Messages from "./Messages";
 
 function MessageFeed({ messages }) {
@@ -14,11 +15,7 @@ function MessageFeed({ messages }) {
     );
   });
 
-  return (
-    <Container fluid>
-      <Stack gap={1}>{messageElems}</Stack>
-    </Container>
-  );
+  return <Stack gap={1}>{messageElems}</Stack>;
 }
 
 export default MessageFeed;

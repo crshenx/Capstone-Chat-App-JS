@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ userInfo }) {
+export default function PrimarySearchAppBar({ userInfo, chat }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -158,6 +158,25 @@ export default function PrimarySearchAppBar({ userInfo }) {
         menuId={menuId}
         navigateProfile={navigateProfile}
       />
+      <Typography
+        noWrap
+        component="div"
+        sx={{
+          ml: 30,
+          border: "1px",
+          position: "fixed",
+          top: "4rem",
+          width: "100%",
+          fontSize: "1.6rem",
+          backgroundColor: "#616161",
+          color: "white",
+          zIndex: 1000,
+          // hide display on mobile
+          display: { xs: "none", sm: "block" },
+        }}
+      >
+        {chat.roomName ? chat.roomName : `Please choose or create a room!`}
+      </Typography>
     </Box>
   );
 }

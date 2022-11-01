@@ -2,33 +2,25 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import consumer from "../channels/consumer";
 import API from "../client/api";
-import DeleteIcon from "@mui/icons-material/Close";
 import {
   Checkbox,
   FormControlLabel,
   FormGroup,
-  IconButton,
   TextField,
 } from "@mui/material";
-import { getSuggestedQuery } from "@testing-library/react";
+import Rooms from "./Rooms";
 
 const drawerWidth = 240;
 
 export default function PermanentDrawerLeft({ onRoomClick }) {
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({ name: "", is_private: false });
-  const [hovered, setHovered] = useState(false);
-  const toggleHover = () => setHovered(!hovered);
 
   useEffect(() => {
     API.getRooms()
@@ -146,30 +138,13 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
         <Divider />
         <List sx={{ overflowY: "auto", height: "80%" }}>
           {rooms.map((room) => (
-            <ListItem
+            <Rooms
               id={room.id}
               key={room.id}
-              disablePadding
-              // onMouseEnter={toggleHover}
-              // onMouseLeave={toggleHover}
-            >
-              <ListItemButton id={room.id} onClick={onRoomClick}>
-                <ListItemText primary={room.name} />
-              </ListItemButton>
-              <div className="room__delete">
-                {/* {hovered ? ( */}
-                <IconButton
-                  id={room.id}
-                  aria-label="delete"
-                  size="small"
-                  onClick={deleteClick}
-                  sx={{ disply: "flex", alignItems: "flex-end" }}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-                {/* // ) : null} */}
-              </div>
-            </ListItem>
+              room={room}
+              deleteClick={deleteClick}
+              onRoomClick={onRoomClick}
+            />
           ))}
         </List>
       </Drawer>

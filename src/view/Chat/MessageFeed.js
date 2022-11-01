@@ -3,10 +3,11 @@ import React from "react";
 // import { Stack } from "react-bootstrap";
 import Messages from "./Messages";
 
-function MessageFeed({ messages }) {
+function MessageFeed({ messages, deleteMessage }) {
   const messageElems = messages.map((message, index) => {
     return (
       <Messages
+        deleteMessage={deleteMessage}
         user={message.user}
         message={message.content}
         data={message}

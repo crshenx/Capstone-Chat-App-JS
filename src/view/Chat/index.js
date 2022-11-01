@@ -86,6 +86,22 @@ function Chat() {
     scrollToBottom();
   }, [chatState.messages]);
 
+  // console.log(auth.user.username);
+
+  function deleteMessage(data, user) {
+    console.log(`message id: ${data}`);
+    if (user.username === auth.user.username) {
+      API.deleteMessages(data.id);
+      // loop through chatState.messages and remove the message with the id
+      setChatState((state) => ({
+        ...state,
+        messages: state.messages.filter((message) => message.id !== data.id),
+      }));
+    } else {
+      alert("You can only delete your own messages");
+    }
+  }
+
   return (
     <div style={{ overflowY: "hidden" }}>
       <NavBar userInfo={auth.user} chat={chatState} />
@@ -125,7 +141,10 @@ function Chat() {
           alignContent: "bottom",
         }}
       >
-        <MessageFeed messages={chatState.messages} />
+        <MessageFeed
+          messages={chatState.messages}
+          deleteMessage={deleteMessage}
+        />
         <div ref={messagesEndRef} />
       </Box>
       <Box

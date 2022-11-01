@@ -3,16 +3,13 @@ import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Divider } from "@mui/material";
 import { BASE_URL } from "../../config";
-import { useRequireAuth } from "../../hooks/use-require-auth";
-import { CompressOutlined } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
 
-function Message({ message, user, data }) {
+function Message({ message, user, data, deleteMessage }) {
   const [hovered, setHovered] = useState(false);
   const toggleHover = () => setHovered(!hovered);
-  //const auth = useRequireAuth();
-  // console.log(user.picture);
-  // console.log(user);
-  // console.log(data);
+
   function utcToLocal(utcTime) {
     let date = new Date(utcTime);
     let localTime = date.toLocaleString();
@@ -25,11 +22,15 @@ function Message({ message, user, data }) {
     return localTimeNoSeconds;
   }
 
+  function deleteClick() {
+    deleteMessage(data, user);
+  }
+
   return (
     <div
-      className="message"
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
+      className="message"
     >
       <div className="message__data">
         <div className="message__left">
@@ -41,6 +42,18 @@ function Message({ message, user, data }) {
           <div className="message__details">
             <div className="username-div">{user.username}</div>
             <div className="time-div">{utcToLocal(data.created_at)}</div>
+            <div className="message__delete">
+              {hovered ? (
+                <IconButton
+                  aria-label="delete"
+                  size="small"
+                  onClick={deleteClick}
+                  sx={{ disply: "flex", alignItems: "flex-end" }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              ) : null}
+            </div>
           </div>
           <Divider />
           <p className="message__text">{message}</p>

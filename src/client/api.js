@@ -81,6 +81,21 @@ const API = {
       body: JSON.stringify(payload),
     }).then(checkStatus);
   },
+
+  delete(
+    url,
+    headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
+    }
+  ) {
+    return fetch(url, {
+      method: "DELETE",
+      headers,
+    });
+  },
+
   /**
    * Create chat room
    * @param {String} name - chatroom name
@@ -112,6 +127,15 @@ const API = {
     })}`;
     return this.get(BASE_URL + url);
   },
+  deleteMessages(message_id) {
+    const url = `${MESSAGES_ENDPOINT}/${message_id}`;
+    return this.delete(BASE_URL + url);
+  },
+  deleteRoom(room_id) {
+    const url = `${ROOMS_ENDPOINT}/${room_id}`;
+    return this.delete(BASE_URL + url);
+  },
+
   /**
    * Authenticate with server
    * @param {String} username - username

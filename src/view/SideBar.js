@@ -12,18 +12,23 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import consumer from "../channels/consumer";
 import API from "../client/api";
+import DeleteIcon from "@mui/icons-material/Close";
 import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  IconButton,
   TextField,
 } from "@mui/material";
+import { getSuggestedQuery } from "@testing-library/react";
 
 const drawerWidth = 240;
 
 export default function PermanentDrawerLeft({ onRoomClick }) {
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({ name: "", is_private: false });
+  const [hovered, setHovered] = useState(false);
+  const toggleHover = () => setHovered(!hovered);
 
   useEffect(() => {
     API.getRooms()
@@ -72,6 +77,14 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
       setFormData({ name: "", is_private: false });
     });
   }
+
+  function deleteClick(e) {
+    let deleteRoomId = e.currentTarget.id;
+    API.deleteRoom(deleteRoomId).then(() => {
+      setRooms(rooms.filter((room) => room.id !== deleteRoomId));
+    });
+  }
+  console.log(rooms);
 
   return (
     <Box
@@ -130,15 +143,32 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
         <Divider />
         <List sx={{ overflowY: "auto", height: "80%" }}>
           {rooms.map((room) => (
-            <ListItem key={room.id} disablePadding>
+            <ListItem
+              id={room.id}
+              key={room.id}
+              disablePadding
+              // onMouseEnter={toggleHover}
+              // onMouseLeave={toggleHover}
+            >
               <ListItemButton id={room.id} onClick={onRoomClick}>
                 <ListItemText primary={room.name} />
               </ListItemButton>
+              <div className="room__delete">
+                {/* {hovered ? ( */}
+                <IconButton
+                  id={room.id}
+                  aria-label="delete"
+                  size="small"
+                  onClick={deleteClick}
+                  sx={{ disply: "flex", alignItems: "flex-end" }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+                {/* // ) : null} */}
+              </div>
             </ListItem>
           ))}
         </List>
-
-        <List></List>
       </Drawer>
     </Box>
   );

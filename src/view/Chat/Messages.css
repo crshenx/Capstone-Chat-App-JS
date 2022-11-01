@@ -18,10 +18,9 @@
 
 .message {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     margin: 10px 0;
-    /* padding: 5px 20px; */
-    /* div take up surr=ounding space*/
+    
     margin-top: -5px;
     /* border: .5px solid #656363; */
   }
@@ -94,4 +93,10 @@
   .message__actions .MuiSvgIcon-root {
     margin-right: 10px;
     cursor: pointer;
+  }
+
+  .message__delete{
+    position: relative;
+     display: flex;
+     margin-top: 0%;
   }

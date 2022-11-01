@@ -130,7 +130,7 @@ function Chat() {
           : `Please choose or create a room!`}
       </Typography> */}
       <Box
-        fluid
+        // fluid
         sx={{
           mt: "4.2rem",
           mb: ".7rem",

@@ -81,10 +81,13 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
   function deleteClick(e) {
     let deleteRoomId = e.currentTarget.id;
     API.deleteRoom(deleteRoomId).then(() => {
-      setRooms(rooms.filter((room) => room.id !== deleteRoomId));
+      setRooms(
+        rooms.filter((room) => {
+          return room.id !== Number(deleteRoomId);
+        })
+      );
     });
   }
-  console.log(rooms);
 
   return (
     <Box

@@ -6,8 +6,8 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import consumer from "../channels/consumer";
-import API from "../client/api";
+import consumer from "../../channels/consumer";
+import API from "../../client/api";
 import {
   Checkbox,
   FormControlLabel,

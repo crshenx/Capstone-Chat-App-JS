@@ -13,7 +13,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MobileMenu from "./MobileMenu";
 import NavMenu from "./NavMenu";
 import { useNavigate } from "react-router-dom";
-import ProfileDrawer from "./ProfileDrawer";
+import ProfileDrawer from "../ProfileDrawer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

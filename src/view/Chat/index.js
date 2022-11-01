@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import MessageFeed from "./MessageFeed";
 import MessageInput from "./MessageInput";
-import SideBar from "../SideBar";
+import SideBar from "../Navigation/SideBar";
 import API from "../../client/api";
 import consumer from "../../channels/consumer";
-import NavBar from "../NavBar";
+import NavBar from "../Navigation/NavBar";
 import { Typography, Box } from "@mui/material";
 import { useRequireAuth } from "../../hooks/use-require-auth";
 

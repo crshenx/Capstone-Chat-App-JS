@@ -8,6 +8,8 @@ import NavBar from "../Navigation/NavBar";
 import { Typography, Box } from "@mui/material";
 import { useRequireAuth } from "../../hooks/use-require-auth";
 
+import NewNav from "../Navigation/NewNav";
+
 function Chat() {
   const [chatState, setChatState] = useState({
     currentRoomID: null,
@@ -76,15 +78,15 @@ function Chat() {
     sub.current.send({ content: message });
   }
 
-  const messagesEndRef = useRef(null);
+  // const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView(/*{ behavior: "smooth" }*/);
-  };
+  // const scrollToBottom = () => {
+  //   messagesEndRef.current?.scrollIntoView(/*{ behavior: "smooth" }*/);
+  // };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatState.messages]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [chatState.messages]);
 
   // console.log(auth.user.username);
 
@@ -103,12 +105,19 @@ function Chat() {
   }
 
   return (
-    <div style={{ overflowY: "hidden" }}>
-      <NavBar userInfo={auth.user} chat={chatState} />
+    <div>
+      {/* <NavBar userInfo={auth.user} chat={chatState} />
       <SideBar
         onRoomClick={onRoomClick}
         messages={chatState.messages}
         sendMessage={sendMessage}
+      /> */}
+      <NewNav
+        onRoomClick={onRoomClick}
+        chatState={chatState}
+        sendMessage={sendMessage}
+        deleteMessage={deleteMessage}
+        userInfo={auth.user}
       />
       {/* <Typography
         noWrap
@@ -129,7 +138,7 @@ function Chat() {
           ? chatState.roomName
           : `Please choose or create a room!`}
       </Typography> */}
-      <Box
+      {/* <Box
         // fluid
         sx={{
           mt: "4.2rem",
@@ -159,7 +168,7 @@ function Chat() {
         }}
       >
         <MessageInput sendMessage={sendMessage} />
-      </Box>
+      </Box> */}
     </div>
   );
 }

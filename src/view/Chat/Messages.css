@@ -70,6 +70,8 @@
   .message__text {
     font-size: 1rem;
     text-align: left;
+    inline-size: 50rem;
+    overflow-wrap: break-word;
   }
   
   .message__data {

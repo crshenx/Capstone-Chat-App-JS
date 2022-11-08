@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import MessageFeed from "./MessageFeed";
-import MessageInput from "./MessageInput";
-import SideBar from "../Navigation/SideBar";
 import API from "../../client/api";
 import consumer from "../../channels/consumer";
-import NavBar from "../Navigation/NavBar";
-import { Typography, Box } from "@mui/material";
 import { useRequireAuth } from "../../hooks/use-require-auth";
-
 import NewNav from "../Navigation/NewNav";
 
 function Chat() {
@@ -106,12 +100,6 @@ function Chat() {
 
   return (
     <div>
-      {/* <NavBar userInfo={auth.user} chat={chatState} />
-      <SideBar
-        onRoomClick={onRoomClick}
-        messages={chatState.messages}
-        sendMessage={sendMessage}
-      /> */}
       <NewNav
         onRoomClick={onRoomClick}
         chatState={chatState}
@@ -119,56 +107,6 @@ function Chat() {
         deleteMessage={deleteMessage}
         userInfo={auth.user}
       />
-      {/* <Typography
-        noWrap
-        component="div"
-        sx={{
-          ml: 30,
-          border: "1px",
-          position: "fixed",
-          top: "4rem",
-          width: "100%",
-          fontSize: "1.6rem",
-          backgroundColor: "#616161",
-          color: "white",
-          zIndex: 1000,
-        }}
-      >
-        {chatState.roomName
-          ? chatState.roomName
-          : `Please choose or create a room!`}
-      </Typography> */}
-      {/* <Box
-        // fluid
-        sx={{
-          mt: "4.2rem",
-          mb: ".7rem",
-          height: "100%",
-          ml: 30,
-          paddingBottom: "3rem",
-          overflow: "hidden",
-          alignContent: "bottom",
-        }}
-      >
-        <MessageFeed
-          messages={chatState.messages}
-          deleteMessage={deleteMessage}
-        />
-        <div ref={messagesEndRef} />
-      </Box>
-      <Box
-        sx={{
-          ml: 30,
-          position: "fixed",
-          bottom: 0,
-          width: "100%",
-          paddingTop: "0rem",
-          zIndex: 1000,
-          backgroundColor: "white",
-        }}
-      >
-        <MessageInput sendMessage={sendMessage} />
-      </Box> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, MenuItem } from "@mui/material";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth } from "../../hooks/use-auth";
 import { useNavigate } from "react-router-dom";
 
 export default function NavMenu({

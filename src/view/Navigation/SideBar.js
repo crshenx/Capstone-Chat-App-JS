@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import consumer from "../channels/consumer";
-import API from "../client/api";
+import consumer from "../../channels/consumer";
+import API from "../../client/api";
 import {
   Checkbox,
   FormControlLabel,
   FormGroup,
   TextField,
 } from "@mui/material";
+import Rooms from "./Rooms";
 
 const drawerWidth = 240;
 
@@ -70,6 +67,17 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
     API.createRoom(formData.name, formData.is_private).then((data) => {
       console.log(data);
       setFormData({ name: "", is_private: false });
+    });
+  }
+
+  function deleteClick(e) {
+    let deleteRoomId = e.currentTarget.id;
+    API.deleteRoom(deleteRoomId).then(() => {
+      setRooms(
+        rooms.filter((room) => {
+          return room.id !== Number(deleteRoomId);
+        })
+      );
     });
   }
 
@@ -130,15 +138,15 @@ export default function PermanentDrawerLeft({ onRoomClick }) {
         <Divider />
         <List sx={{ overflowY: "auto", height: "80%" }}>
           {rooms.map((room) => (
-            <ListItem key={room.id} disablePadding>
-              <ListItemButton id={room.id} onClick={onRoomClick}>
-                <ListItemText primary={room.name} />
-              </ListItemButton>
-            </ListItem>
+            <Rooms
+              id={room.id}
+              key={room.id}
+              room={room}
+              deleteClick={deleteClick}
+              onRoomClick={onRoomClick}
+            />
           ))}
         </List>
-
-        <List></List>
       </Drawer>
     </Box>
   );

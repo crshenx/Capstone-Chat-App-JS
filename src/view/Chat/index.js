@@ -72,18 +72,6 @@ function Chat() {
     sub.current.send({ content: message });
   }
 
-  // const messagesEndRef = useRef(null);
-
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current?.scrollIntoView(/*{ behavior: "smooth" }*/);
-  // };
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [chatState.messages]);
-
-  // console.log(auth.user.username);
-
   function deleteMessage(data, user) {
     console.log(`message id: ${data}`);
     if (user.username === auth.user.username) {

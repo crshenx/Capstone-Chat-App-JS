@@ -155,7 +155,7 @@ export default function PersistentDrawerLeft({
     API.deleteRoom(deleteRoomId).then(() => {
       setRooms(
         rooms.filter((room) => {
-          return room.id !== Number(deleteRoomId);
+          return room.id !== parseInt(deleteRoomId);
         })
       );
     });

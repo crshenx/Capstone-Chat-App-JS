@@ -219,8 +219,8 @@ export default function PersistentDrawerLeft({
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar src={userInfo.picture ? BASE_URL + userInfo.picture : ""}>
-                {!userInfo.picture ? userInfo.username[0] : ""}
+              <Avatar src={userInfo ? BASE_URL + userInfo.picture : ""}>
+                {userInfo ? userInfo.username[0] : ""}
               </Avatar>
             </IconButton>
           </Box>

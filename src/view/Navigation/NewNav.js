@@ -24,14 +24,12 @@ import API from "../../client/api";
 import { useState } from "react";
 import { useEffect } from "react";
 import consumer from "../../channels/consumer";
-import Chat from "../Chat";
+
 import MessageFeed from "../Chat/MessageFeed";
 import MessageInput from "../Chat/MessageInput";
 import { useRef } from "react";
-import { AccountCircle } from "@mui/icons-material";
 import NavMenu from "./NavMenu";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../config";
 
 const drawerWidth = 240;
 
@@ -219,7 +217,7 @@ export default function PersistentDrawerLeft({
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar src={userInfo ? BASE_URL + userInfo.picture : ""}>
+              <Avatar src={userInfo ? userInfo.picture : ""}>
                 {userInfo ? userInfo.username[0] : ""}
               </Avatar>
             </IconButton>

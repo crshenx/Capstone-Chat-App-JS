@@ -2,7 +2,6 @@ import "./Messages.css";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Divider } from "@mui/material";
-import { BASE_URL } from "../../config";
 import DeleteIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 
@@ -34,14 +33,14 @@ function Message({ message, user, data, deleteMessage }) {
     >
       <div className="message__data">
         <div className="message__left">
-          <Avatar src={user.picture ? BASE_URL + user.picture : ""}>
+          <Avatar src={user.picture ? user.picture : ""}>
             {!user.picture ? user.username[0] : ""}
           </Avatar>
         </div>
         <div className="message__right">
           <div className="message__details">
             <div className="username-div">{user.username}</div>
-            <div className="time-div">{utcToLocal(data.created_at)}</div>
+            <div className="time-div">{utcToLocal(data?.created_at)}</div>
             <div className="message__delete">
               {hovered ? (
                 <IconButton

@@ -2,11 +2,10 @@ import {
   AUTH_TOKEN_ID,
   LOGIN_ENDPOINT,
   SIGNUP_ENDPOINT,
-  BASE_URL,
   ROOMS_ENDPOINT,
   MESSAGES_ENDPOINT,
 } from "../config";
-import { checkStatus, blobToBase64 } from "../utils/util";
+import { checkStatus } from "../utils/util";
 
 const API = {
   /**
@@ -102,7 +101,7 @@ const API = {
    * @returns {Promise} request promise, rejects on bad status
    */
   createRoom(name, isPrivate = false) {
-    return this.post(BASE_URL + ROOMS_ENDPOINT, {
+    return this.post(ROOMS_ENDPOINT, {
       room: {
         name,
         is_private: isPrivate,
@@ -114,7 +113,7 @@ const API = {
    * @returns {Promise<Array>} resolves array of rooms
    */
   getRooms() {
-    return this.get(BASE_URL + ROOMS_ENDPOINT);
+    return this.get(ROOMS_ENDPOINT);
   },
   /**
    * Gets all messages for a given room
@@ -125,15 +124,15 @@ const API = {
     const url = `${MESSAGES_ENDPOINT}?${new URLSearchParams({
       roomID: roomID,
     })}`;
-    return this.get(BASE_URL + url);
+    return this.get(url);
   },
   deleteMessages(message_id) {
     const url = `${MESSAGES_ENDPOINT}/${message_id}`;
-    return this.delete(BASE_URL + url);
+    return this.delete(url);
   },
   deleteRoom(room_id) {
     const url = `${ROOMS_ENDPOINT}/${room_id}`;
-    return this.delete(BASE_URL + url);
+    return this.delete(url);
   },
 
   /**
@@ -144,7 +143,7 @@ const API = {
    */
   login(username, password) {
     return this.post(
-      `${BASE_URL}${LOGIN_ENDPOINT}`,
+      LOGIN_ENDPOINT,
       { user: { username, password } },
       {
         "Content-Type": "application/json",
@@ -162,7 +161,7 @@ const API = {
    */
   signup(username, password, bio = "", avatar = "") {
     return this.post(
-      `${BASE_URL}${SIGNUP_ENDPOINT}`,
+      SIGNUP_ENDPOINT,
       {
         user: {
           username,
@@ -182,7 +181,7 @@ const API = {
   async uploadImage(formData) {
     // need to add upload endpoint to config
 
-    return this.sendForm(`${BASE_URL}/api/v1/attach`, formData, {
+    return this.sendForm(`/api/v1/attach`, formData, {
       Accept: "application/json",
       Authorization: `Bearer ${sessionStorage.getItem(AUTH_TOKEN_ID)}`,
     });

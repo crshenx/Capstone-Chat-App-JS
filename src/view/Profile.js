@@ -34,6 +34,7 @@ function Profile() {
       auth.updateUser(data);
     });
   }
+  console.log(BASE_URL + auth.user.picture);
 
   return (
     <div>

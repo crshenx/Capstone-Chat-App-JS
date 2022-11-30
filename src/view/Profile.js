@@ -6,7 +6,6 @@ import { TextField, Button, IconButton, Box, Avatar } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import EditOffIcon from "@mui/icons-material/EditOff";
 import API from "../client/api";
-import { BASE_URL } from "../config";
 
 function Profile() {
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ function Profile() {
           />
           <Avatar
             alt="Remy Sharp"
-            src={BASE_URL + auth.user.picture || ""}
+            src={auth.user.picture || ""}
             sx={{ width: 56, height: 56 }}
           />
           <Button variant="contained" component="label">
